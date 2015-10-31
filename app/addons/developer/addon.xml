@@ -9,4 +9,11 @@
     <status>active</status>
     <has_icon>Y</has_icon>
     <default_language>en</default_language>
+    <authors>
+        <author>
+            <name>HELOstore</name>
+            <email>contact@helostore.com</email>
+            <url>https://helostore.com</url>
+        </author>
+    </authors>
 </addon>
