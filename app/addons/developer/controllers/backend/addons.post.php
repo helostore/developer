@@ -57,12 +57,22 @@ if ($mode == 'pack' && !empty($addon)) {
 		}
 	}
 
-	// add design files
+	// add frontend theme files
 	list($current_theme_path, $current_theme_name) = fn_get_customer_layout_theme_path();
 
 	$installed_themes = fn_get_installed_themes();
 	$addon_name = $addon;
 
+	$themePartPaths = array(
+		'templates/addons/' . $addon_name,
+		'css/addons/' . $addon_name,
+		'media/images/addons/' . $addon_name,
+
+		// Copy Mail directory
+		'mail/templates/addons/' . $addon_name,
+		'mail/media/images/addons/' . $addon_name,
+		'mail/css/addons/' . $addon_name,
+	);
 
 	foreach ($installed_themes as $theme_name) {
 		if ($theme_name != $current_theme_name) {
@@ -83,47 +93,31 @@ if ($mode == 'pack' && !empty($addon)) {
 		} else {
 			$parent_path = fn_get_theme_path('[repo]/' . Registry::get('config.base_theme') . '/');
 		}
-
-
 		$source = fn_get_theme_path('[themes]/' . $theme_name . '/', 'C');
-
-
 		$repo_paths = array(
 //			fn_get_theme_path('[repo]/basic' . '/'),
 			$parent_path
 		);
-
-		$themePartPaths = array(
-			'templates/addons/' . $addon_name,
-			'css/addons/' . $addon_name,
-			'media/images/addons/' . $addon_name,
-
-			// Copy Mail directory
-			'mail/templates/addons/' . $addon_name,
-			'mail/media/images/addons/' . $addon_name,
-			'mail/css/addons/' . $addon_name,
-		);
-
-
-
 		foreach ($themePartPaths as $path) {
-
 			$search = $source . $path;
 			if (is_dir($search)) {
 				foreach ($repo_paths as $repo_path) {
 					$destination = $repo_path . $path;
-//					aa('Copying ' . $search . ' to ' . $destination);
 					fn_copy($search,  $destination);
 					$paths[] = $destination;
 
 				}
 			}
 		}
-
-
 	}
-
-
+	// add backend theme files
+	$backendTheme = fn_get_theme_path('[themes]' . '/', 'A');
+	foreach ($themePartPaths as $path) {
+		$search = $backendTheme . $path;
+		if (is_dir($search)) {
+			$paths[] = $search;
+		}
+	}
 
 	// filter out non-existing paths
 	foreach ($paths as $i => $path) {
@@ -147,7 +141,7 @@ if ($mode == 'pack' && !empty($addon)) {
 	}
 	fn_print_r('Included:', $included);
 	fn_print_r('Excluded:', $excluded);
-exit;
+
 	return array(CONTROLLER_STATUS_OK, 'addons.manage');
 
 }
@@ -161,14 +155,14 @@ function fn_developer_zip($sources, $destination, $basePath, $exclusions, &$excl
 	}
 
 	foreach ($sources as $source) {
-		$source = str_replace(array('\\', '/'), '/', realpath($source));
+//		$source = str_replace(array('\\', '/'), '/', realpath($source));
+		$source = str_replace(array('\\', '/'), '/', $source);
 		if (is_dir($source) === true) {
 
 			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
 
 			foreach ($files as $file) {
 				$file = str_replace(array('\\', '/'), '/', $file);
-
 
 				// Ignore "." and ".." folders
 				if (in_array(substr($file, strrpos($file, '/') + 1), array('.', '..'))) {
@@ -190,7 +184,6 @@ function fn_developer_zip($sources, $destination, $basePath, $exclusions, &$excl
 				} else if (is_file($file) === true) {
 					$_file = str_replace($basePath, '', $file);
 					$included[] = $_file;
-
 					$zip->addFromString($_file, file_get_contents($file));
 				}
 			}
