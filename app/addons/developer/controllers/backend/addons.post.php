@@ -142,12 +142,12 @@ if ($mode == 'pack' && !empty($addon)) {
 	$included = array();
 	if (fn_developer_zip($paths, $archivePath, $basePath, $exclusions, $excluded, $included)) {
 		fn_print_r('Archived to ' . $archivePath);
-		fn_print_r('Included:', $included);
-		fn_print_r('Excluded:', $excluded);
 	} else {
 		fn_print_r('Failed');
 	}
-
+	fn_print_r('Included:', $included);
+	fn_print_r('Excluded:', $excluded);
+exit;
 	return array(CONTROLLER_STATUS_OK, 'addons.manage');
 
 }
@@ -190,8 +190,8 @@ function fn_developer_zip($sources, $destination, $basePath, $exclusions, &$excl
 				} else if (is_file($file) === true) {
 					$_file = str_replace($basePath, '', $file);
 					$included[] = $_file;
+
 					$zip->addFromString($_file, file_get_contents($file));
-				} else {
 				}
 			}
 		} else if (is_file($source) === true) {
