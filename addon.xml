@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<addon scheme="3.0">
+    <id>developer</id>
+    <version>0.1</version>
+    <name>Developer Tools</name>
+    <description>Developer Tools by HELOstore</description>
+    <priority>1010111</priority>
+    <position>0</position>
+    <status>active</status>
+    <has_icon>Y</has_icon>
+    <default_language>en</default_language>
+</addon>
