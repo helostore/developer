@@ -13,9 +13,11 @@
                     , $ul = $tr.find('.btn-group.dropleft .dropdown-menu')
                     , reinstallUrl = fn_url('addons.reinstall?addon=' + addonName)
                     , packUrl = fn_url('addons.pack?addon=' + addonName)
+                    , refreshTranslationUrl = fn_url('addons.refresh_translations?addon=' + addonName)
                     ;
                 $ul.append('<li class="divider"></li>')
                     .append('<li><a class="cm-confirm" href="' + reinstallUrl + '">Reinstall</a></li>')
+                    .append('<li><a class="cm-confirm" href="' + refreshTranslationUrl + '">Refresh Translations</a></li>')
                     .append('<li><a class="cm-confirm" href="' + packUrl + '">Pack</a></li>');
             });
         }

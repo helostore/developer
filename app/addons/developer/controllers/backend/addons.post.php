@@ -13,6 +13,7 @@
  */
 
 use Tygh\Addons\SchemesManager;
+use Tygh\Languages\Languages;
 use Tygh\Registry;
 use Tygh\Themes\Themes;
 
@@ -20,6 +21,29 @@ if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
 $addon = (!empty($_REQUEST['addon']) ? $_REQUEST['addon'] : '');
 
+if ($mode == 'refresh_translations' && !empty($addon)) {
+	$addon_scheme = SchemesManager::getScheme($addon);
+	foreach ($addon_scheme->getAddonTranslations() as $translation) {
+		db_query("REPLACE INTO ?:addon_descriptions ?e", array(
+			'lang_code' => $translation['lang_code'],
+			'addon' =>  $addon_scheme->getId(),
+			'name' => $translation['value'],
+			'description' => isset($translation['description']) ? $translation['description'] : ''
+		));
+	}
+
+	foreach ($addon_scheme->getLanguages() as $lang_code => $_v) {
+		$lang_code = strtolower($lang_code);
+		$path = $addon_scheme->getPoPath($lang_code);
+		if (!empty($path)) {
+			Languages::installLanguagePack($path, array(
+				'reinstall' => true,
+				'validate_lang_code' => $lang_code
+			));
+		}
+	}
+	return array(CONTROLLER_STATUS_OK, 'addons.manage');
+}
 if ($mode == 'reinstall' && !empty($addon)) {
 
 	fn_uninstall_addon($addon);
