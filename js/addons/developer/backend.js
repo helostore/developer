@@ -17,7 +17,7 @@
                     ;
                 $ul.append('<li class="divider"></li>')
                     .append('<li><a class="cm-confirm" href="' + reinstallUrl + '">Reinstall</a></li>')
-                    .append('<li><a class="cm-confirm" href="' + refreshTranslationUrl + '">Refresh Translations</a></li>')
+                    .append('<li><a class="" href="' + refreshTranslationUrl + '">Refresh Translations</a></li>')
                     .append('<li><a class="cm-confirm" href="' + packUrl + '">Pack</a></li>');
             });
         }
