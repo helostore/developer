@@ -21,7 +21,7 @@
                     </item>
                     <item id="info">
                         <type>info</type>
-                        <handler>fn_helostore_info,developer</handler>
+                        <handler>fn_sidekick_info,developer</handler>
                     </item>
                 </items>
             </section>
