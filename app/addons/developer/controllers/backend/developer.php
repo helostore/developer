@@ -30,7 +30,7 @@ if ($mode == 'sidekick_messages_translations') {
 msgid "' . strtolower($const) . '"
 msgstr "' . $currentTranslation . '"
 ';
-			$output[] = $message;
+			$output[] = htmlentities($message);
 			if ($prefix) {
 				fn_set_notification('N', 'Test', $currentTranslation, 'K');
 			}

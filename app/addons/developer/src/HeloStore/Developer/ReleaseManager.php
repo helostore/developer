@@ -16,17 +16,18 @@ namespace HeloStore\Developer;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Tygh\Addons\SchemesManager;
+use Tygh\CompanySingleton;
 use Tygh\Registry;
 use Tygh\Themes\Themes;
 use ZipArchive;
 
 class ReleaseManager
 {
-
-	public static function pack($addon)
+	public $releasePath = '/var/releases/';
+	public function pack($addon, &$output = array())
 	{
 		if (!extension_loaded('zip')) {
-			return array(CONTROLLER_STATUS_OK, 'addons.manage');
+			return false;
 		}
 
 		$basePath = Registry::get('config.dir.root');
@@ -122,26 +123,37 @@ class ReleaseManager
 			}
 		}
 
-
-
+		$filename = $addon . '-v' . $version . '.zip';
 		@fn_mkdir($outputPath);
-		$archivePath = $basePath . $outputPath . $addon . '-v' . $version . '.zip';
+		$archivePath = $basePath . $outputPath . $filename;
+		$baseUrl = Registry::get('config.http_location');
 
 		$excluded = array();
 		$included = array();
-		if (self::archive($paths, $archivePath, $basePath, $exclusions, $excluded, $included)) {
+		$archiveUrl = '';
+		if ($this->archive($paths, $archivePath, $basePath, $exclusions, $excluded, $included)) {
 			$result = true;
-			fn_print_r('Archived to ' . $archivePath);
+//			fn_print_r('Archived to ' . $archivePath);
+			$archiveUrl = $baseUrl . $outputPath . $filename;
 		} else {
 			$result = false;
-			fn_print_r('Failed');
+//			fn_print_r('Failed archiving to ' . $archivePath);
 		}
-		fn_print_r('Included:', $included);
-		fn_print_r('Excluded:', $excluded);
+//		fn_print_r('Included:', $included);
+//		fn_print_r('Excluded:', $excluded);
+		$output = array(
+			'version' => $version,
+			'productCode' => $addon,
+			'filename' => $filename,
+			'archivePath' => $archivePath,
+			'archiveUrl' => $archiveUrl,
+			'includedFiles' => $included,
+			'excludedFiles' => $excluded,
+		);
 
 		return $result;
 	}
-	public static function archive($sources, $destination, $basePath, $exclusions, &$excluded, &$included)
+	public function archive($sources, $destination, $basePath, $exclusions, &$excluded, &$included)
 	{
 		$zip = new ZipArchive();
 		if (!$zip->open($destination, ZIPARCHIVE::OVERWRITE)) {
@@ -190,5 +202,45 @@ class ReleaseManager
 		$result = $zip->close();
 
 		return $result;
+	}
+
+	public function release($productCode, $params)
+	{
+		$productId = db_get_field('SELECT product_id FROM ?:products WHERE adls_addon_id = ?s', $productCode);
+		if (empty($productId)) {
+			fn_print_r('Unable to find product attached to code ' . $productCode);
+
+			return false;
+		}
+		list ($files, ) = fn_get_product_files(array('product_id' => $productId));
+		$filename = $params['filename'];
+		if (!empty($files)) {
+			$file = array_shift($files);
+			$fileId = $file['file_id'];
+		} else {
+			$file = array(
+				'product_id' => $productId,
+				'file_name' => $filename,
+				'position' => 0,
+				'folder_id' => '',
+				'activation_type' => 'P',
+				'max_downloads' => 0,
+				'license' => '',
+				'agreement' => 'Y',
+				'readme' => '',
+			);
+			$fileId = 0;
+		}
+		$file['file_name'] = $filename;
+
+		$_REQUEST['file_base_file'] = array(
+			$fileId => $params['archiveUrl']
+		);
+		$_REQUEST['type_base_file'] = array(
+			$fileId => 'url'
+		);
+		$fileId = fn_update_product_file($file, $fileId);
+
+		return $fileId;
 	}
 }

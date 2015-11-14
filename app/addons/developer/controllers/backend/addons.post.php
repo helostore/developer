@@ -53,11 +53,17 @@ if ($mode == 'reinstall' && !empty($addon)) {
 }
 
 if ($mode == 'pack' && !empty($addon)) {
-	if (ReleaseManager::pack($addon)) {
+	$manager = new ReleaseManager();
+	if ($manager->pack($addon, $output)) {
 		// attach new zip to product
+		if ($manager->release($addon, $output)) {
+			fn_set_notification('N', __('notice'), 'Attached release to product: ' . $output['filename']);
+		} else {
+			fn_set_notification('E', __('error'), 'Failed attaching release to product: ' . $output['filename']);
+		}
 	}
-	return array(CONTROLLER_STATUS_OK, 'addons.manage');
 
+	return array(CONTROLLER_STATUS_OK, 'addons.manage');
 }
 
 
