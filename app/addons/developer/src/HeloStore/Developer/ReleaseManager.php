@@ -221,7 +221,7 @@ class ReleaseManager
 				'product_id' => $productId,
 				'file_name' => $filename,
 				'position' => 0,
-				'folder_id' => '',
+				'folder_id' => null,
 				'activation_type' => 'P',
 				'max_downloads' => 0,
 				'license' => '',
