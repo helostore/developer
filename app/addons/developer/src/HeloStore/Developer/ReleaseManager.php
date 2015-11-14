@@ -131,16 +131,17 @@ class ReleaseManager
 		$excluded = array();
 		$included = array();
 		$archiveUrl = '';
+        @unlink($archivePath);
 		if ($this->archive($paths, $archivePath, $basePath, $exclusions, $excluded, $included)) {
 			$result = true;
-//			fn_print_r('Archived to ' . $archivePath);
+			// fn_print_r('Archived to ' . $archivePath);
 			$archiveUrl = $baseUrl . $outputPath . $filename;
 		} else {
 			$result = false;
-//			fn_print_r('Failed archiving to ' . $archivePath);
+			// fn_print_r('Failed archiving to ' . $archivePath);
 		}
-//		fn_print_r('Included:', $included);
-//		fn_print_r('Excluded:', $excluded);
+		// fn_print_r('Included:', $included);
+		// fn_print_r('Excluded:', $excluded);
 		$output = array(
 			'version' => $version,
 			'productCode' => $addon,
@@ -156,10 +157,9 @@ class ReleaseManager
 	public function archive($sources, $destination, $basePath, $exclusions, &$excluded, &$included)
 	{
 		$zip = new ZipArchive();
-		if (!$zip->open($destination, ZIPARCHIVE::OVERWRITE)) {
+		if (!$zip->open($destination, ZipArchive::OVERWRITE|ZipArchive::CREATE)) {
 			return false;
 		}
-
 		foreach ($sources as $source) {
 			// $source = str_replace(array('\\', '/'), '/', realpath($source));
 			$source = str_replace(array('\\', '/'), '/', $source);
@@ -174,8 +174,7 @@ class ReleaseManager
 					if (in_array(substr($file, strrpos($file, '/') + 1), array('.', '..'))) {
 						continue;
 					}
-					// $file = realpath($file);
-
+					$realPath = realpath($file);
 					$parts = explode('/', $file);
 					$matches = array_intersect($parts, $exclusions);
 					if (!empty($matches)) {
@@ -185,22 +184,24 @@ class ReleaseManager
 
 					if (is_dir($file) === true) {
 						$_file = str_replace($basePath, '', $file . '/');
+                        $_file = trim($_file, ' /');
 						$included[] = $_file;
 						$zip->addEmptyDir($_file);
 					} else if (is_file($file) === true) {
 						$_file = str_replace($basePath, '', $file);
+                        $_file = trim($_file, ' /');
 						$included[] = $_file;
-						$zip->addFromString($_file, file_get_contents($file));
+						$zip->addFromString($_file, file_get_contents($realPath));
 					}
 				}
 			} else if (is_file($source) === true) {
 				$_file = str_replace($basePath, '', $source);
+                $_file = trim($_file, ' /');
 				$included[] = $_file;
 				$zip->addFromString($_file, file_get_contents($source));
 			}
 		}
 		$result = $zip->close();
-
 		return $result;
 	}
 
@@ -208,8 +209,6 @@ class ReleaseManager
 	{
 		$productId = db_get_field('SELECT product_id FROM ?:products WHERE adls_addon_id = ?s', $productCode);
 		if (empty($productId)) {
-			fn_print_r('Unable to find product attached to code ' . $productCode);
-
 			return false;
 		}
 		list ($files, ) = fn_get_product_files(array('product_id' => $productId));

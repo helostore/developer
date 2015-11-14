@@ -55,6 +55,7 @@ if ($mode == 'reinstall' && !empty($addon)) {
 if ($mode == 'pack' && !empty($addon)) {
 	$manager = new ReleaseManager();
 	if ($manager->pack($addon, $output)) {
+        fn_set_notification('N', __('notice'), 'Packed to ' . $output['filename']);
 		// attach new zip to product
 		if ($manager->release($addon, $output)) {
 			fn_set_notification('N', __('notice'), 'Attached release to product: ' . $output['filename']);
