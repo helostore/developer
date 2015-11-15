@@ -11,3 +11,15 @@ msgstr "Developer Tools"
 msgctxt "Addons::description::developer"
 msgid "Tools for developers by HELOstore"
 msgstr "Tools for developers by HELOstore"
+
+msgctxt "SettingsOptions::developer::email"
+msgid "HELOstore email"
+msgstr "HELOstore email"
+
+msgctxt "SettingsOptions::developer::password"
+msgid "HELOstore password"
+msgstr "HELOstore password"
+
+msgctxt "SettingsOptions::developer::license"
+msgid "License key"
+msgstr "License key"
