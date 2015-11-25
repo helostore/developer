@@ -72,7 +72,7 @@ class ReleaseManager
 		}
 
 		$basePath = Registry::get('config.dir.root');
-		$outputPath = '/var/releases/';
+		$outputPath = 'var/releases/';
 		$exclusions = array(
 			'.git'
 		);
@@ -162,8 +162,13 @@ class ReleaseManager
 		}
 
 		$filename = $addon . '-v' . $version . '.zip';
-		@fn_mkdir($outputPath);
-		$archivePath = $basePath . $outputPath . $filename;
+
+		if (!@fn_mkdir($outputPath)) {
+			$this->addError('Unable to create directory `' . $outputPath . '`');
+			return false;
+		}
+
+		$archivePath = $basePath . '/' . $outputPath . $filename;
 		$baseUrl = Registry::get('config.http_location');
 
 		$excluded = array();
@@ -172,7 +177,7 @@ class ReleaseManager
         @unlink($archivePath);
 		if ($this->archive($paths, $archivePath, $basePath, $exclusions, $excluded, $included)) {
 			$result = true;
-			$archiveUrl = $baseUrl . $outputPath . $filename;
+			$archiveUrl = $baseUrl . '/' . $outputPath . $filename;
 		} else {
 			$result = false;
 			$this->addError('Failed archiving `' . $archivePath . '`.');
