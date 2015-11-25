@@ -24,9 +24,50 @@ use ZipArchive;
 class ReleaseManager
 {
 	public $releasePath = '/var/releases/';
+	private $errors = array();
+
+	/**
+	 * Get them errors
+	 *
+	 * @return array
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
+	}
+
+	/**
+	 * Test if the release has failed you
+	 *
+	 * @return bool
+	 */
+	public function hasErrors()
+	{
+		return (!empty($this->errors));
+	}
+
+	/**
+	 * Adds a happy message for the developer
+	 *
+	 * @param $error
+	 */
+	public function addError($error)
+	{
+		$this->errors[] = $error;
+	}
+
+	/**
+	 * Gather and archives all files related to specified add-on
+	 *
+	 * @param $addon
+	 * @param array $output
+	 *
+	 * @return bool
+	 */
 	public function pack($addon, &$output = array())
 	{
 		if (!extension_loaded('zip')) {
+			$this->addError('This feature requires the zip PHP extension to be loaded.');
 			return false;
 		}
 
@@ -43,7 +84,7 @@ class ReleaseManager
 		$paths[] = $basePath . '/js/addons/' . $addon . '/';
 
 
-		// add langs
+		// add language files
 		$langsPath = Registry::get('config.dir.lang_packs');
 		$langs = fn_get_dir_contents($langsPath);
 		foreach ($langs as $lang) {
@@ -64,7 +105,6 @@ class ReleaseManager
 			'css/addons/' . $addon_name,
 			'media/images/addons/' . $addon_name,
 
-			// Copy Mail directory
 			'mail/templates/addons/' . $addon_name,
 			'mail/media/images/addons/' . $addon_name,
 			'mail/css/addons/' . $addon_name,
@@ -75,11 +115,9 @@ class ReleaseManager
 				continue;
 			}
 			$manifest = Themes::factory($theme_name)->getRepoManifest();
-
 			if (empty($manifest)) {
 				$manifest = Themes::factory($theme_name)->getManifest();
 			}
-
 			if (isset($manifest['parent_theme'])) {
 				if (empty($manifest['parent_theme'])) {
 					$parent_path = fn_get_theme_path('[repo]/' . $theme_name . '/');
@@ -91,7 +129,7 @@ class ReleaseManager
 			}
 			$source = fn_get_theme_path('[themes]/' . $theme_name . '/', 'C');
 			$repo_paths = array(
-//			fn_get_theme_path('[repo]/basic' . '/'),
+				// fn_get_theme_path('[repo]/basic' . '/'),
 				$parent_path
 			);
 			foreach ($themePartPaths as $path) {
@@ -101,11 +139,11 @@ class ReleaseManager
 						$destination = $repo_path . $path;
 						fn_copy($search,  $destination);
 						$paths[] = $destination;
-
 					}
 				}
 			}
 		}
+
 		// add backend theme files
 		$backendTheme = fn_get_theme_path('[themes]' . '/', 'A');
 		foreach ($themePartPaths as $path) {
@@ -134,14 +172,11 @@ class ReleaseManager
         @unlink($archivePath);
 		if ($this->archive($paths, $archivePath, $basePath, $exclusions, $excluded, $included)) {
 			$result = true;
-			// fn_print_r('Archived to ' . $archivePath);
 			$archiveUrl = $baseUrl . $outputPath . $filename;
 		} else {
 			$result = false;
-			// fn_print_r('Failed archiving to ' . $archivePath);
+			$this->addError('Failed archiving `' . $archivePath . '`.');
 		}
-		// fn_print_r('Included:', $included);
-		// fn_print_r('Excluded:', $excluded);
 		$output = array(
 			'version' => $version,
 			'productCode' => $addon,
@@ -154,10 +189,24 @@ class ReleaseManager
 
 		return $result;
 	}
+
+	/**
+	 * Helper function that performs the actual archiving
+	 *
+	 * @param $sources
+	 * @param $destination
+	 * @param $basePath
+	 * @param $exclusions
+	 * @param $excluded
+	 * @param $included
+	 *
+	 * @return bool
+	 */
 	public function archive($sources, $destination, $basePath, $exclusions, &$excluded, &$included)
 	{
 		$zip = new ZipArchive();
 		if (!$zip->open($destination, ZipArchive::OVERWRITE|ZipArchive::CREATE)) {
+			$this->addError('Unable to write archive at destination `' . $destination . '`. Maybe I don\'t have write permissions there? Just sayin\'..');
 			return false;
 		}
 		foreach ($sources as $source) {
@@ -202,11 +251,25 @@ class ReleaseManager
 			}
 		}
 		$result = $zip->close();
+
 		return $result;
 	}
 
+	/**
+	 * Attaches the new archive to a ADLS product. This feature requires the Application Distribution License System
+	 * (ADLS) add-on and it will automatically push the new product into update channels (ie. release)
+	 *
+	 * @param $productCode
+	 * @param $params
+	 *
+	 * @return bool|int
+	 */
 	public function release($productCode, $params)
 	{
+		if (!defined('ADLS_AUTHOR_NAME')) {
+			return null;
+		}
+
 		$productId = db_get_field('SELECT product_id FROM ?:products WHERE adls_addon_id = ?s', $productCode);
 		if (empty($productId)) {
 			return false;
