@@ -63,15 +63,15 @@ if ($mode == 'reinstall' && !empty($addon)) {
 if ($mode == 'pack' && !empty($addon)) {
 	$manager = new ReleaseManager();
 	if ($manager->pack($addon, $output)) {
-        fn_set_notification('N', __('notice'), 'Packed to ' . $output['filename']);
+        fn_set_notification('N', __('notice'), 'Packed to ' . $output['archivePath']);
 
 		// attempt to release the newly packed add-on
 		$result = $manager->release($addon, $output);
 		if ($result !== null) {
 			if ($result) {
-				fn_set_notification('N', __('notice'), 'Attached release to product: ' . $output['filename']);
+				fn_set_notification('N', __('notice'), 'Attached release to product: ' . $output['archivePath']);
 			} else {
-				fn_set_notification('E', __('error'), 'Failed attaching release to product: ' . $output['filename']);
+				fn_set_notification('E', __('error'), 'Failed attaching release to product: ' . $output['archivePath']);
 			}
 		}
 	} else if ($manager->hasErrors()) {
