@@ -56,11 +56,19 @@ if ($mode == 'pack' && !empty($addon)) {
 	$manager = new ReleaseManager();
 	if ($manager->pack($addon, $output)) {
         fn_set_notification('N', __('notice'), 'Packed to ' . $output['filename']);
-		// attach new zip to product
-		if ($manager->release($addon, $output)) {
-			fn_set_notification('N', __('notice'), 'Attached release to product: ' . $output['filename']);
-		} else {
-			fn_set_notification('E', __('error'), 'Failed attaching release to product: ' . $output['filename']);
+
+		// attempt to release the newly packed add-on
+		$result = $manager->release($addon, $output);
+		if ($result !== null) {
+			if ($result) {
+				fn_set_notification('N', __('notice'), 'Attached release to product: ' . $output['filename']);
+			} else {
+				fn_set_notification('E', __('error'), 'Failed attaching release to product: ' . $output['filename']);
+			}
+		}
+	} else if ($manager->hasErrors()) {
+		foreach ($manager->getErrors() as $error) {
+			fn_set_notification('E', __('error'), $error);
 		}
 	}
 
