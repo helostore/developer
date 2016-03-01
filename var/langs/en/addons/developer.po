@@ -12,6 +12,11 @@ msgctxt "Addons::description::developer"
 msgid "Tools for developers by HELOstore"
 msgstr "Tools for developers by HELOstore"
 
+
+msgctxt "SettingsSections::developer::license"
+msgid "License"
+msgstr "License"
+
 msgctxt "SettingsOptions::developer::email"
 msgid "HELOstore email"
 msgstr "HELOstore email"
@@ -23,3 +28,24 @@ msgstr "HELOstore password"
 msgctxt "SettingsOptions::developer::license"
 msgid "License key"
 msgstr "License key"
+
+
+msgctxt "SettingsSections::developer::emails"
+msgid "Emails"
+msgstr "Emails"
+
+msgctxt "SettingsOptions::developer::catch_all_email"
+msgid "Catch-all email"
+msgstr "Catch-all email"
+
+msgctxt "SettingsTooltips::developer::catch_all_email"
+msgid "While working in development environment, you don't want to send emails to customers or sales department by mistake. Use this option to redirect all the emails in your tests to your email address."
+msgstr "While working in development environment, you don't want to send emails to customers or sales department by mistake. Use this option to redirect all the emails in your tests to your email address."
+
+msgctxt "SettingsOptions::developer::disable_emails"
+msgid "Disable all emails"
+msgstr "Disable all emails"
+
+msgctxt "SettingsTooltips::developer::disable_emails"
+msgid "Disable sending any emails. This will also prevent receiving emails in the catch-all email address."
+msgstr "Disable sending any emails. This will also prevent receiving emails in the catch-all email address."

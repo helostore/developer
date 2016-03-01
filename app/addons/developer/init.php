@@ -22,3 +22,4 @@ if (defined('DEVELOPMENT')) {
 	}
 	fn_register_hooks('dispatch_before_display');
 }
+fn_register_hooks('send_mail_pre');

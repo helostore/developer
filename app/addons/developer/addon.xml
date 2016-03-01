@@ -11,7 +11,7 @@
     <default_language>en</default_language>
     <settings edition_type="ROOT">
         <sections>
-            <section id="general">
+            <section id="license">
                 <items>
                     <item id="email">
                         <type>input</type>
@@ -25,6 +25,16 @@
                     <item id="info">
                         <type>info</type>
                         <handler>fn_sidekick_info,developer</handler>
+                    </item>
+                </items>
+            </section>
+            <section id="emails">
+                <items>
+                    <item id="disable_emails">
+                        <type>checkbox</type>
+                    </item>
+                    <item id="catch_all_email">
+                        <type>input</type>
                     </item>
                 </items>
             </section>

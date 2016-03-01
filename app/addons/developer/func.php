@@ -53,3 +53,34 @@ function fn_developer_smarty_block_hook_post($params, $content, $overrides, $sma
 		}
 	}
 }
+
+function fn_developer_send_mail_pre($mailer, &$params, $area, $lang_code)
+{
+	$developerSettings = Registry::get('addons.developer');
+	if (!empty($developerSettings['disable_emails']) && $developerSettings['disable_emails'] == 'Y') {
+		$params['to'] = '';
+		return false;
+	}
+
+	if (!empty($developerSettings['catch_all_email'])) {
+		if (!empty($params['to'])) {
+			$params['to_original'] = $params['to'];
+			$originalDestination = 'redirected to ' . $params['to'];
+
+			if (!empty($params['from'])) {
+				if (is_array($params['from'])) {
+					$params['from']['name'] = (isset($params['from']['name']) ? $params['from']['name'] : '') . ' ' . $originalDestination;
+				} else {
+					$params['from'] = array(
+						'email' => $params['from'],
+						'name' => $originalDestination
+					);
+				}
+			} else {
+				$params['from'] = $originalDestination;
+			}
+		}
+
+		$params['to'] = $developerSettings['catch_all_email'];
+	}
+}
