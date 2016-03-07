@@ -127,9 +127,11 @@ class ReleaseManager
 			} else {
 				$parent_path = fn_get_theme_path('[repo]/' . Registry::get('config.base_theme') . '/');
 			}
+			$basic_path = fn_get_theme_path('[repo]/basic/');
 			$source = fn_get_theme_path('[themes]/' . $theme_name . '/', 'C');
 			$repo_paths = array(
 				// fn_get_theme_path('[repo]/basic' . '/'),
+				$basic_path,
 				$parent_path
 			);
 			foreach ($themePartPaths as $path) {
