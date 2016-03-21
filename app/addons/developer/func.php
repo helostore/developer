@@ -65,7 +65,7 @@ function fn_developer_send_mail_pre($mailer, &$params, $area, $lang_code)
 	if (!empty($developerSettings['catch_all_email'])) {
 		if (!empty($params['to'])) {
 			$params['to_original'] = $params['to'];
-			$originalDestination = 'redirected to ' . $params['to'];
+			$originalDestination = 'redirected from ' . $params['to'];
 
 			if (!empty($params['from'])) {
 				if (is_array($params['from'])) {
