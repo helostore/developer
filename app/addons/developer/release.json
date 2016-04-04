@@ -1,0 +1,31 @@
+[
+    {
+        "version": "0.1.13",
+        "releaseDate": "2016-04-04 11:48:19",
+        "releaseTimestamp": "1459813699",
+        "hash": "d739f3cf10b9a82e6fbeb6545c930fcf7a443884",
+        "commits": [
+            "[2016-04-04] Bumped version to 0.1.13",
+            "[2016-04-05] Moved away logic for unusable release feature",
+            "[2016-03-21] Bumped version to 0.1.12",
+            "[2016-03-07] Bumped version to 0.1.11",
+            "[2016-03-07] Copy template files to basic theme repository when packing",
+            "[2016-03-01] Bumped version to 0.1.10",
+            "[2016-03-01] Allows you, the developer, to redirect all the emails of your tests to your email address or to disable completely sending any emails in development environment",
+            "[2015-11-25] Bumped version to 0.1.9",
+            "[2015-11-25] Show full path",
+            "[2015-11-25] Bumped version to 0.1.8",
+            "[2015-11-25] Fixed paths",
+            "[2015-11-25] Bumped version to 0.1.7",
+            "[2015-11-25] Clean up",
+            "[2015-11-25] Bumped version to 0.1.6",
+            "[2015-11-25] Show error messages",
+            "[2015-11-25] Added error messages + clean up",
+            "[2015-11-25] Added zip extension dependency",
+            "[2015-11-15] Bumped version to 0.1.5",
+            "[2015-11-15] Added license field",
+            "[2015-11-14] Bumped version to 0.1.4",
+            "[2015-11-14] Minor fix"
+        ]
+    }
+]
