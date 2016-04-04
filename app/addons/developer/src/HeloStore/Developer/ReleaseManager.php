@@ -273,43 +273,9 @@ class ReleaseManager
 	 */
 	public function release($productCode, $params)
 	{
-		if (!defined('ADLS_AUTHOR_NAME')) {
+		if (!class_exists('\\HeloStore\\ADLS\\ProductManager')) {
 			return null;
 		}
-
-		$productId = db_get_field('SELECT product_id FROM ?:products WHERE adls_addon_id = ?s', $productCode);
-		if (empty($productId)) {
-			return false;
-		}
-		list ($files, ) = fn_get_product_files(array('product_id' => $productId));
-		$filename = $params['filename'];
-		if (!empty($files)) {
-			$file = array_shift($files);
-			$fileId = $file['file_id'];
-		} else {
-			$file = array(
-				'product_id' => $productId,
-				'file_name' => $filename,
-				'position' => 0,
-				'folder_id' => null,
-				'activation_type' => 'P',
-				'max_downloads' => 0,
-				'license' => '',
-				'agreement' => 'Y',
-				'readme' => '',
-			);
-			$fileId = 0;
-		}
-		$file['file_name'] = $filename;
-
-		$_REQUEST['file_base_file'] = array(
-			$fileId => $params['archiveUrl']
-		);
-		$_REQUEST['type_base_file'] = array(
-			$fileId => 'url'
-		);
-		$fileId = fn_update_product_file($file, $fileId);
-
-		return $fileId;
+		return \HeloStore\ADLS\ProductManager::instance()->updateRelease($productCode, $params);
 	}
 }
