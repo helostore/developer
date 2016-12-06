@@ -14,7 +14,7 @@
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 if (defined('DEVELOPMENT')) {
 	if (AREA == 'A') {
