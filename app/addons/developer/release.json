@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.1.14",
+        "releaseDate": "2016-12-06 03:07:40",
+        "releaseTimestamp": "1481036860",
+        "hash": "a9d10bb2e32b5e5cae16e4ea7c454221d3557fc3",
+        "commits": [
+            "[2016-12-06] Bumped version to 0.1.14",
+            "[2016-12-06] Minor fix: autoloader path corrected"
+        ]
+    },
+    {
         "version": "0.1.13",
         "releaseDate": "2016-04-04 11:48:19",
         "releaseTimestamp": "1459813699",
