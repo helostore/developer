@@ -16,6 +16,8 @@ if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+DEFINE('DEVELOPER_PATH', __DIR__);
+
 if (defined('DEVELOPMENT')) {
 	if (AREA == 'A') {
 		fn_register_hooks('smarty_block_hook_post');

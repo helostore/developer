@@ -16,152 +16,44 @@ namespace HeloStore\Developer;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Tygh\Addons\SchemesManager;
-use Tygh\CompanySingleton;
+use Tygh\Addons\XmlScheme3;
 use Tygh\Registry;
-use Tygh\Themes\Themes;
 use ZipArchive;
 
-class ReleaseManager
+class ReleaseManager extends Singleton
 {
-	public $releasePath = '/var/releases/';
-	private $errors = array();
-
-	/**
-	 * Get them errors
-	 *
-	 * @return array
-	 */
-	public function getErrors()
-	{
-		return $this->errors;
-	}
-
-	/**
-	 * Test if the release has failed you
-	 *
-	 * @return bool
-	 */
-	public function hasErrors()
-	{
-		return (!empty($this->errors));
-	}
-
-	/**
-	 * Adds a happy message for the developer
-	 *
-	 * @param $error
-	 */
-	public function addError($error)
-	{
-		$this->errors[] = $error;
-	}
-
 	/**
 	 * Gather and archives all files related to specified add-on
 	 *
 	 * @param $addon
 	 * @param array $output
+	 * @param array $params
 	 *
 	 * @return bool
 	 */
-	public function pack($addon, &$output = array())
+	public function pack($addon, &$output = array(), $params = array())
 	{
 		if (!extension_loaded('zip')) {
 			$this->addError('This feature requires the zip PHP extension to be loaded.');
 			return false;
 		}
 
-		$basePath = Registry::get('config.dir.root');
-		$outputPath = 'var/releases/';
+		$basePath = !empty($params['basePath']) ? $params['basePath'] : Registry::get('config.dir.root');
+		$outputPath = !empty($params['outputPath']) ? $params['outputPath'] : 'var/releases/';
 		$exclusions = array(
 			'.git'
 		);
 
-		$scheme = SchemesManager::getScheme($addon);
-		$version = $scheme->getVersion();
-		$paths = array();
-		$paths[] = $basePath . '/app/addons/' . $addon . '/';
-		$paths[] = $basePath . '/js/addons/' . $addon . '/';
 
+		$version = !empty($params['version']) ? $params['version'] : null;
 
-		// add language files
-		$langsPath = Registry::get('config.dir.lang_packs');
-		$langs = fn_get_dir_contents($langsPath);
-		foreach ($langs as $lang) {
-			$searchPath = $langsPath . $lang . '/addons/' . $addon . '.po';
-			if (file_exists($searchPath)) {
-				$paths[] = $searchPath;
-			}
+		if (empty($version)) {
+			/** @var XmlScheme3 $scheme */
+			$scheme = SchemesManager::getScheme($addon);
+			$version = $scheme->getVersion();
 		}
 
-		// add frontend theme files
-		list($current_theme_path, $current_theme_name) = fn_get_customer_layout_theme_path();
-
-		$installed_themes = fn_get_installed_themes();
-		$addon_name = $addon;
-
-		$themePartPaths = array(
-			'templates/addons/' . $addon_name,
-			'css/addons/' . $addon_name,
-			'media/images/addons/' . $addon_name,
-
-			'mail/templates/addons/' . $addon_name,
-			'mail/media/images/addons/' . $addon_name,
-			'mail/css/addons/' . $addon_name,
-		);
-
-		foreach ($installed_themes as $theme_name) {
-			if ($theme_name != $current_theme_name) {
-				continue;
-			}
-			$manifest = Themes::factory($theme_name)->getRepoManifest();
-			if (empty($manifest)) {
-				$manifest = Themes::factory($theme_name)->getManifest();
-			}
-			if (isset($manifest['parent_theme'])) {
-				if (empty($manifest['parent_theme'])) {
-					$parent_path = fn_get_theme_path('[repo]/' . $theme_name . '/');
-				} else {
-					$parent_path = fn_get_theme_path('[repo]/' . $manifest['parent_theme'] . '/');
-				}
-			} else {
-				$parent_path = fn_get_theme_path('[repo]/' . Registry::get('config.base_theme') . '/');
-			}
-			$basic_path = fn_get_theme_path('[repo]/basic/');
-			$source = fn_get_theme_path('[themes]/' . $theme_name . '/', 'C');
-			$repo_paths = array(
-				// fn_get_theme_path('[repo]/basic' . '/'),
-				$basic_path,
-				$parent_path
-			);
-			foreach ($themePartPaths as $path) {
-				$search = $source . $path;
-				if (is_dir($search)) {
-					foreach ($repo_paths as $repo_path) {
-						$destination = $repo_path . $path;
-						fn_copy($search,  $destination);
-						$paths[] = $destination;
-					}
-				}
-			}
-		}
-
-		// add backend theme files
-		$backendTheme = fn_get_theme_path('[themes]' . '/', 'A');
-		foreach ($themePartPaths as $path) {
-			$search = $backendTheme . $path;
-			if (is_dir($search)) {
-				$paths[] = $search;
-			}
-		}
-
-		// filter out non-existing paths
-		foreach ($paths as $i => $path) {
-			if (!file_exists($path)) {
-				unset($paths[$i]);
-				continue;
-			}
-		}
+		$paths = AddonHelper::instance()->getPaths($addon);
 
 		$filename = $addon . '-v' . $version . '.zip';
 
@@ -216,13 +108,14 @@ class ReleaseManager
 			$this->addError('Unable to write archive at destination `' . $destination . '`. Maybe I don\'t have write permissions there? Just sayin\'..');
 			return false;
 		}
+        $basePath = str_replace(array('\\', '/'), '/', $basePath);
 		foreach ($sources as $source) {
 			// $source = str_replace(array('\\', '/'), '/', realpath($source));
 			$source = str_replace(array('\\', '/'), '/', $source);
 			if (is_dir($source) === true) {
 
-				$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
 
+				$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::CHILD_FIRST);
 				foreach ($files as $file) {
 					$file = str_replace(array('\\', '/'), '/', $file);
 

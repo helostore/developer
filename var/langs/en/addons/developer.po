@@ -49,3 +49,100 @@ msgstr "Disable all emails"
 msgctxt "SettingsTooltips::developer::disable_emails"
 msgid "Disable sending any emails. This will also prevent receiving emails in the catch-all email address."
 msgstr "Disable sending any emails. This will also prevent receiving emails in the catch-all email address."
+
+
+
+
+msgctxt "Languages::developer.generate"
+msgid "generate"
+msgstr "Generate"
+
+
+msgctxt "Languages::developer.generate.addon"
+msgid "generate.addon"
+msgstr "Generate add-on"
+
+msgctxt "Languages::developer.generate.post_actions"
+msgid "post_actions"
+msgstr "Postprocessing actions"
+
+msgctxt "Languages::developer.generate.addon.settings"
+msgid "settings"
+msgstr "Add-on settings"
+
+msgctxt "Languages::developer.generate.addon.install"
+msgid "install"
+msgstr "Install"
+
+msgctxt "Languages::developer.generate.addon.install.tooltip"
+msgid "install.tooltip"
+msgstr "Attempts to install the newly generated add-on. Note: if an add-on with the ID specified below already exists, this procedure will fail."
+
+msgctxt "Languages::developer.generate.addon.archive"
+msgid "archive"
+msgstr "Create a ZIP archive"
+
+msgctxt "Languages::developer.generate.error.unknown"
+msgid "error"
+msgstr "Oops! Something went wrong, and I'm not sure what.."
+
+
+
+
+
+
+msgctxt "Languages::developer.generate.addon.id"
+msgid "id"
+msgstr "ID (directory name)"
+
+msgctxt "Languages::developer.generate.addon.id.tooltip"
+msgid "id.tooltip"
+msgstr "Do not use an existing add-on's name."
+
+msgctxt "Languages::developer.generate.addon.version"
+msgid "version"
+msgstr "Initial version"
+
+msgctxt "Languages::developer.generate.addon.name"
+msgid "name"
+msgstr "Name"
+
+msgctxt "Languages::developer.generate.addon.description"
+msgid "description"
+msgstr "Description"
+
+msgctxt "Languages::developer.generate.addon.priority"
+msgid "priority"
+msgstr "Priority"
+
+msgctxt "Languages::developer.generate.addon.position"
+msgid "position"
+msgstr "Position"
+
+msgctxt "Languages::developer.generate.addon.status"
+msgid "status"
+msgstr "Status"
+
+msgctxt "Languages::developer.generate.addon.has_icon"
+msgid "has_icon"
+msgstr "Has icon?"
+
+msgctxt "Languages::developer.generate.addon.default_language"
+msgid "default_language"
+msgstr "Default language"
+
+msgctxt "Languages::developer.generate.addon.company_name"
+msgid "company_name"
+msgstr "Developer name"
+
+msgctxt "Languages::developer.generate.addon.company_url"
+msgid "company_url"
+msgstr "Developer URL"
+
+msgctxt "Languages::developer.generate.addon.company_license_url"
+msgid "company_license_url"
+msgstr "License URL"
+
+msgctxt "Languages::developer.generate.addon.year"
+msgid "year"
+msgstr "Year"

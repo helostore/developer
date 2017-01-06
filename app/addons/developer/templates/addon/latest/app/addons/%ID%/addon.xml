@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<addon scheme="3.0">
+    <id>%ID%</id>
+    <version>%VERSION%</version>
+    <name>%NAME%</name>
+    <description>%DESCRIPTION%</description>
+    <priority>%PRIORITY%</priority>
+    <position>%POSITION%</position>
+    <status>%STATUS%</status>
+    <has_icon>%HAS_ICON%</has_icon>
+    <default_language>%DEFAULT_LANGUAGE%</default_language>
+</addon>

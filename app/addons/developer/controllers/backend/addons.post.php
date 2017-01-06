@@ -12,14 +12,78 @@
  * @version    $Id$
  */
 
+use HeloStore\Developer\Creator;
 use HeloStore\Developer\ReleaseManager;
 use Tygh\Addons\SchemesManager;
 use Tygh\Languages\Languages;
 use Tygh\Registry;
+use Tygh\Tygh;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
 $addon = (!empty($_REQUEST['addon']) ? $_REQUEST['addon'] : '');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+	fn_trusted_vars(
+		'addon_data'
+	);
+	if ($mode == 'generate' && !empty($_POST['addon_data']) && !empty($_POST['addon_data']['options'])) {
+		$creator = new \HeloStore\Developer\Creator();
+		$data = $_POST['addon_data']['options'];
+		$data = $creator->prepareData($data);
+		$creator->validateData($data);
+//			$result = $creator->make($data);
+        $errors = array();
+
+		try {
+
+			$paths = $creator->make($data, array(
+				'absolutePaths' => true
+			));
+
+			if ($data['archive'] == 'Y') {
+				$creator->archive($paths, $data);
+			}
+			if ($data['install'] == 'Y') {
+				$creator->install();
+			}
+
+
+		} catch (\Exception $e) {
+            $errors[] = $e->getMessage();
+		}
+
+
+        if (!empty($errors) || $creator->hasErrors()) {
+            $errors += $creator->getErrors();
+            foreach ($errors as $error) {
+                fn_set_notification('E', __('error'), $error);
+            }
+        } else {
+            $results = $creator->getResults();
+
+            $workspacePath = $creator->getArchivePath();
+            $workspacePath = str_replace('\\', '/', $workspacePath);
+            $workspaceUrl = $creator->getDownloadUrl(false);
+
+            $msg = Tygh::$app['view']->fetch('addons/developer/views/addons/generate/addon_results.tpl', array(
+                'results' => $results,
+                'hsWorkspacePath' => $workspacePath,
+                'hsWorkspaceUrl' => $workspaceUrl,
+            ));
+            fn_set_notification('I', __('developer.generate'), $msg, 'S');
+        }
+
+		if (defined('AJAX_REQUEST')) {
+			exit;
+		}
+
+
+
+		return array(CONTROLLER_STATUS_OK, 'addons.manage');
+	}
+}
 
 if ($mode == 'refresh_translations' && !empty($addon)) {
 	$addon_scheme = SchemesManager::getScheme($addon);
@@ -61,7 +125,7 @@ if ($mode == 'reinstall' && !empty($addon)) {
 }
 
 if ($mode == 'pack' && !empty($addon)) {
-	$manager = new ReleaseManager();
+	$manager = ReleaseManager::instance();
 	if ($manager->pack($addon, $output)) {
         fn_set_notification('N', __('notice'), 'Packed to ' . $output['archivePath']);
 
@@ -81,4 +145,17 @@ if ($mode == 'pack' && !empty($addon)) {
 	}
 
 	return array(CONTROLLER_STATUS_OK, 'addons.manage');
+}
+
+
+if ($mode == 'generate' || $mode == 'manage') {
+	$creator = new Creator();
+	$fields = $creator->getFields();
+    Tygh::$app['view']->assign('hsAddonFields', $fields);
+
+    $workspacePath = $creator->getArchivePath();
+    $workspacePath = str_replace('\\', '/', $workspacePath);
+    $workspaceUrl = $creator->getDownloadUrl(false);
+	Tygh::$app['view']->assign('hsWorkspacePath', $workspacePath);
+	Tygh::$app['view']->assign('hsWorkspaceUrl', $workspaceUrl);
 }
