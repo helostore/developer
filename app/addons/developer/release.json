@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.1.15",
+        "releaseDate": "2017-01-06 11:29:15",
+        "releaseTimestamp": "1483745355",
+        "hash": "1505bd3e45e3eeb42ed1bb0f64248f5c8f360f7c",
+        "commits": [
+            "[2017-01-06] Bumped version to 0.1.15",
+            "[2017-01-07] Feature: generate add-on structure on-the-fly with zip option"
+        ]
+    },
+    {
         "version": "0.1.14",
         "releaseDate": "2016-12-06 03:07:40",
         "releaseTimestamp": "1481036860",
