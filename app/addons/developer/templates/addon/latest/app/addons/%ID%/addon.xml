@@ -9,4 +9,11 @@
     <status>%STATUS%</status>
     <has_icon>%HAS_ICON%</has_icon>
     <default_language>%DEFAULT_LANGUAGE%</default_language>
+    <authors>
+        <author>
+            <name>%COMPANY_NAME%</name>
+            <email>%COMPANY_EMAIL%</email>
+            <url>%COMPANY_URL%</url>
+        </author>
+    </authors>
 </addon>
