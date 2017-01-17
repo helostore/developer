@@ -12,6 +12,7 @@
                 text=__('developer.generate.addon')
                 title=__('developer.generate.addon')
                 content=$smarty.capture.generate_addon
+                href="addons.generate"|fn_url
                 act="general"
                 link_class=""
                 icon="icon-pencil"

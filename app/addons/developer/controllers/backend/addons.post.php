@@ -154,7 +154,7 @@ if ($mode == 'generate' || $mode == 'manage') {
     $previousData = json_decode($previousData, true);
     $previousData = is_array($previousData) ? $previousData : array();
 	$fields = $creator->getFields($previousData);
-    Tygh::$app['view']->assign('hsAddonFields', $fields);
+	Tygh::$app['view']->assign('hsAddonFields', $fields);
 
     $workspacePath = $creator->getArchivePath();
     $workspacePath = str_replace('\\', '/', $workspacePath);

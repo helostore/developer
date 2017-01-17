@@ -271,23 +271,27 @@ class Creator extends Singleton
 
         $data = $this->prepareData($data);
 
-
         foreach ($data as $field => $value) {
+            if (in_array($field, array('install', 'archive'))) {
+                continue;
+            }
             $langVar = 'developer.generate.addon.' . $field;
             $tooltip = __($langVar . '.tooltip');
             if (substr($tooltip, 0, 1) == '_') {
                 $tooltip = false;
             }
+            $type = 'I';
+            if (in_array($field, array('has_icon'))) {
+                $type = 'C';
+            }
             $options['general'][] = array(
                 'name' => $field,
                 'description' => __($langVar),
                 'value' => $value,
-                'type' => 'I',
+                'type' => $type,
                 'tooltip' => $tooltip
             );
         }
-
-
 
         return $options;
     }
