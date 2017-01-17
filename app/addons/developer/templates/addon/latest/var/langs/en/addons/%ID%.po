@@ -11,3 +11,7 @@ msgstr "%NAME%"
 msgctxt "Addons::description::%ID%"
 msgid "%DESCRIPTION%"
 msgstr "%DESCRIPTION%"
+
+msgctxt "Languages::%ID%.sample_lang_var"
+msgid "Sample translation entry for %ID%"
+msgstr "Sample translation entry for %ID%"

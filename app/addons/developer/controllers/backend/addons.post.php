@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$creator = new \HeloStore\Developer\Creator();
 		$data = $_POST['addon_data']['options'];
 		$data = $creator->prepareData($data);
-		$creator->validateData($data);
-//			$result = $creator->make($data);
+        $creator->validateData($data);
+        fn_set_storage_data('developer_generate_addon_data', json_encode($data));
         $errors = array();
 
 		try {
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'hsWorkspacePath' => $workspacePath,
                 'hsWorkspaceUrl' => $workspaceUrl,
             ));
-            fn_set_notification('I', __('developer.generate'), $msg, 'S');
+            fn_set_notification('I', __('developer.tools'), $msg, 'S');
         }
 
 		if (defined('AJAX_REQUEST')) {
@@ -150,7 +150,10 @@ if ($mode == 'pack' && !empty($addon)) {
 
 if ($mode == 'generate' || $mode == 'manage') {
 	$creator = new Creator();
-	$fields = $creator->getFields();
+    $previousData = fn_get_storage_data('developer_generate_addon_data');
+    $previousData = json_decode($previousData, true);
+    $previousData = is_array($previousData) ? $previousData : array();
+	$fields = $creator->getFields($previousData);
     Tygh::$app['view']->assign('hsAddonFields', $fields);
 
     $workspacePath = $creator->getArchivePath();

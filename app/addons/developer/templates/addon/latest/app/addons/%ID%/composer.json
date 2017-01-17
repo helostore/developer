@@ -1,0 +1,18 @@
+{
+    "name": "%VENDOR_NAME_LOWERCASE%/%PROJECT_NAME_LOWERCASE%",
+    "authors": [
+        {
+            "name": "%COMPANY_NAME%",
+            "email": "%COMPANY_EMAIL%",
+            "homepage": "%COMPANY_URL%",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "%COMPANY_EMAIL%",
+    },
+    "autoload": {
+        "psr-0": { "%VENDOR_NAME%": "src/" }
+    },
+    "require": {}
+}

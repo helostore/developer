@@ -12,7 +12,6 @@ msgctxt "Addons::description::developer"
 msgid "Tools for developers by HELOstore"
 msgstr "Tools for developers by HELOstore"
 
-
 msgctxt "SettingsSections::developer::license"
 msgid "License"
 msgstr "License"
@@ -52,11 +51,13 @@ msgstr "Disable sending any emails. This will also prevent receiving emails in t
 
 
 
+msgctxt "Languages::developer.tools"
+msgid "Developer Tools"
+msgstr "Developer Tools"
 
 msgctxt "Languages::developer.generate"
 msgid "generate"
 msgstr "Generate"
-
 
 msgctxt "Languages::developer.generate.addon"
 msgid "generate.addon"
@@ -135,6 +136,10 @@ msgctxt "Languages::developer.generate.addon.company_name"
 msgid "company_name"
 msgstr "Developer name"
 
+msgctxt "Languages::developer.generate.addon.company_email"
+msgid "company_email"
+msgstr "Company email"
+
 msgctxt "Languages::developer.generate.addon.company_url"
 msgid "company_url"
 msgstr "Developer URL"
@@ -146,3 +151,12 @@ msgstr "License URL"
 msgctxt "Languages::developer.generate.addon.year"
 msgid "year"
 msgstr "Year"
+
+msgctxt "Languages::developer.generate.addon.vendor_name"
+msgid "vendor_name"
+msgstr "Vendor name"
+
+msgctxt "Languages::developer.generate.addon.project_name"
+msgid "project_name"
+msgstr "Project name"
+
