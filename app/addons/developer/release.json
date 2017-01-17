@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.1.16",
+        "releaseDate": "2017-01-17 09:54:03",
+        "releaseTimestamp": "1484646843",
+        "hash": "9deb715cc4a82aa7ba1b73355174ef15494ee14e",
+        "commits": [
+            "[2017-01-17] Bumped version to 0.1.16",
+            "[2017-01-17] Features: added to add-on template: backend styles, controllers, langvar sample entry in .PO"
+        ]
+    },
+    {
         "version": "0.1.15",
         "releaseDate": "2017-01-06 11:29:15",
         "releaseTimestamp": "1483745355",
