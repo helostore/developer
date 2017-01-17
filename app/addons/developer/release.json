@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.1.18",
+        "releaseDate": "2017-01-17 12:27:15",
+        "releaseTimestamp": "1484656035",
+        "hash": "87cbeb0983dfda1e6d9dcbdcfcc40d91729e11f0",
+        "commits": [
+            "[2017-01-17] Bumped version to 0.1.18",
+            "[2017-01-17] Bugfix: field types fix"
+        ]
+    },
+    {
         "version": "0.1.17",
         "releaseDate": "2017-01-17 12:03:22",
         "releaseTimestamp": "1484654602",
@@ -27,16 +37,6 @@
         "commits": [
             "[2017-01-06] Bumped version to 0.1.15",
             "[2017-01-07] Feature: generate add-on structure on-the-fly with zip option"
-        ]
-    },
-    {
-        "version": "0.1.14",
-        "releaseDate": "2016-12-06 03:07:40",
-        "releaseTimestamp": "1481036860",
-        "hash": "a9d10bb2e32b5e5cae16e4ea7c454221d3557fc3",
-        "commits": [
-            "[2016-12-06] Bumped version to 0.1.14",
-            "[2016-12-06] Minor fix: autoloader path corrected"
         ]
     }
 ]
