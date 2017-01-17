@@ -17,6 +17,26 @@ use Tygh\Registry;
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
 
+function fn_developer_parse_version($string)
+{
+	$result = array(
+		'major' => 0,
+		'minor' => 0,
+		'patch' => 0,
+
+	);
+	if (empty($string)) {
+		return $result;
+	}
+	$matched = preg_match("/^(\d+)\.(\d+)[\. \-]?([a-z0-9\-\.]+)$/i", $string, $matches);
+	if ($matched) {
+		$result['major'] = (int)$matches[1];
+		$result['minor'] = (int)$matches[2];
+		$result['patch'] = $matches[3];
+
+	}
+	return $result;
+}
 function fn_developer_dispatch_before_display()
 {
 	$view = &\Tygh\Tygh::$app['view'];

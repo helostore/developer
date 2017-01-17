@@ -1,12 +1,11 @@
 {if $runtime.controller == 'addons' && $runtime.mode == 'manage'}
-
     {if !$runtime.company_id && !"RESTRICTED_ADMIN"|defined}
 
         {capture name="generate_addon"}
             {include file="addons/developer/views/addons/generate/addon.tpl"}
         {/capture}
 
-        <div class="btn-toolbar dropleft pull-right">
+        <div class="btn-toolbar dropleft pull-right hsdv-generate">
             {include
                 file="common/popupbox.tpl"
                 id="generate_addon"
