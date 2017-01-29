@@ -15,7 +15,7 @@
                 href="addons.generate"|fn_url
                 act="general"
                 link_class=""
-                icon="icon-pencil"
+                icon="icon-fire"
                 link_text=__('developer.generate')}
         </div>
     {/if}
