@@ -3,7 +3,7 @@
         <input type="hidden" name="result_ids" value="generate_addon_container" />
         <div class="generate-addon-wrapper">
 
-
+            {$_addon = "developer"}
             {foreach from=$hsAddonFields key="section" item="field_item"}
 
                 {if $subsections.$section.type == "SEPARATE_TAB"}

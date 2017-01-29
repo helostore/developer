@@ -65,11 +65,11 @@ msgstr "Generate add-on"
 
 msgctxt "Languages::developer.generate.post_actions"
 msgid "post_actions"
-msgstr "Postprocessing actions"
+msgstr "Post-processing Options"
 
 msgctxt "Languages::developer.generate.addon.settings"
 msgid "settings"
-msgstr "Add-on settings"
+msgstr "Add-on Information"
 
 msgctxt "Languages::developer.generate.addon.install"
 msgid "install"
@@ -83,11 +83,94 @@ msgctxt "Languages::developer.generate.addon.archive"
 msgid "archive"
 msgstr "Create a ZIP archive"
 
+msgctxt "Languages::developer.generate.addon.archive.tooltip"
+msgid "archive.tooltip"
+msgstr "The whole add-on structure with directories and files will be archived as a .ZIP file into <code>%path%</code>"
+
 msgctxt "Languages::developer.generate.error.unknown"
 msgid "error"
 msgstr "Oops! Something went wrong, and I'm not sure what.."
 
 
+
+msgctxt "Languages::developer.generate.processing_options"
+msgid "processing_options"
+msgstr "Processing Options"
+
+msgctxt "Languages::developer.generate.addon.frontend"
+msgid "frontend"
+msgstr "Frontend"
+
+msgctxt "Languages::developer.generate.addon.frontend.tooltip"
+msgid "frontend.tooltip"
+msgstr "Choose what components to be generated for <b>front-end</b>: <br>"
+    "<ul>"
+        "<li>Controller - a simple .PHP file to be used a controller"
+        "<li>Template - a basic template directory structure"
+        "<li>JS - a .JS file with simple jQuery and Tygh objects integration"
+        "<li>CSS - a .LESS file with mobile-first media queries preset"
+        "<li>Images - directory structure for use with your images"
+        "<li>Mail - directory structure for use with mail templates"
+    "</ul>"
+
+msgctxt "Languages::developer.generate.addon.frontend.controller"
+msgid "frontend.controller"
+msgstr "Controller"
+
+msgctxt "Languages::developer.generate.addon.frontend.css"
+msgid "frontend.css"
+msgstr "CSS"
+
+msgctxt "Languages::developer.generate.addon.frontend.images"
+msgid "frontend.images"
+msgstr "Images"
+
+msgctxt "Languages::developer.generate.addon.frontend.js"
+msgid "frontend.js"
+msgstr "JavaScript"
+
+msgctxt "Languages::developer.generate.addon.frontend.mail"
+msgid "frontend.mail"
+msgstr "Mail"
+
+
+
+
+msgctxt "Languages::developer.generate.addon.backend"
+msgid "backend"
+msgstr "Backend"
+
+msgctxt "Languages::developer.generate.addon.backend.tooltip"
+msgid "backend.tooltip"
+msgstr "Choose what components to be generated for <b>back-end</b>: <br>"
+           "<ul>"
+               "<li>Controller - a simple .PHP file to be used a controller"
+               "<li>Template - a basic template directory structure"
+               "<li>JS - a .JS file with simple jQuery and Tygh objects integration"
+               "<li>CSS - a .LESS file with mobile-first media queries preset"
+               "<li>Images - directory structure for use with your images"
+               "<li>Mail - directory structure for use with mail templates"
+           "</ul>"
+
+msgctxt "Languages::developer.generate.addon.backend.controller"
+msgid "backend.controller"
+msgstr "Controller"
+
+msgctxt "Languages::developer.generate.addon.backend.css"
+msgid "backend.css"
+msgstr "CSS"
+
+msgctxt "Languages::developer.generate.addon.backend.images"
+msgid "backend.images"
+msgstr "Images"
+
+msgctxt "Languages::developer.generate.addon.backend.js"
+msgid "backend.js"
+msgstr "JavaScript"
+
+msgctxt "Languages::developer.generate.addon.backend.mail"
+msgid "backend.mail"
+msgstr "Mail"
 
 
 
@@ -98,7 +181,7 @@ msgstr "ID (directory name)"
 
 msgctxt "Languages::developer.generate.addon.id.tooltip"
 msgid "id.tooltip"
-msgstr "Do not use an existing add-on's name."
+msgstr "The add-on ID is also the add-on's directory name. Do not use an existing add-on directory or ID."
 
 msgctxt "Languages::developer.generate.addon.version"
 msgid "version"
@@ -126,7 +209,7 @@ msgstr "Status"
 
 msgctxt "Languages::developer.generate.addon.has_icon"
 msgid "has_icon"
-msgstr "Has icon?"
+msgstr "Has icon"
 
 msgctxt "Languages::developer.generate.addon.default_language"
 msgid "default_language"
@@ -159,4 +242,38 @@ msgstr "Vendor name"
 msgctxt "Languages::developer.generate.addon.project_name"
 msgid "project_name"
 msgstr "Project name"
+
+
+
+
+msgctxt "Languages::developer.generate.addon.field.hint.id"
+msgid "hint"
+msgstr "Can contain only these characters: a-z A-Z 0-9 _ -"
+
+msgctxt "Languages::developer.generate.addon.field.hint.project_name"
+msgid "hint"
+msgstr "Can contain only these characters: a-z A-Z 0-9 _ -"
+
+msgctxt "Languages::developer.generate.addon.field.hint.vendor_name"
+msgid "hint"
+msgstr "Can contain only these characters: a-z A-Z 0-9 _ -"
+
+msgctxt "Languages::developer.generate.addon.field.hint.version"
+msgid "hint"
+msgstr "Should be one of the formats: X or X.X or X.X.X, where X is an integer."
+
+msgctxt "Languages::developer.generate.addon.field.hint.priority"
+msgid "hint"
+msgstr "Should be an integer."
+
+msgctxt "Languages::developer.generate.addon.field.hint.position"
+msgid "hint"
+msgstr "Should be an integer."
+
+msgctxt "Languages::developer.generate.addon.field.hint.default_language"
+msgid "hint"
+msgstr "Should be a 2-characters long string representing the language's code."
+
+
+
 

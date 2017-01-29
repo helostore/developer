@@ -32,34 +32,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$creator = new \HeloStore\Developer\Creator();
 		$data = $_POST['addon_data']['options'];
 		$data = $creator->prepareData($data);
-        $creator->validateData($data);
-        fn_set_storage_data('developer_generate_addon_data', json_encode($data));
+        $valid = $creator->validateData($data);
+        fn_set_storage_data('helostore/developer/generate/addon', json_encode($data));
         $errors = array();
+        if ($valid) {
+            try {
 
-		try {
+                $paths = $creator->make($data, array(
+                    'absolutePaths' => true
+                ));
 
-			$paths = $creator->make($data, array(
-				'absolutePaths' => true
-			));
-
-			if ($data['archive'] == 'Y') {
-				$creator->archive($paths, $data);
-			}
-			if ($data['install'] == 'Y') {
-				$creator->install();
-			}
-
-
-		} catch (\Exception $e) {
-            $errors[] = $e->getMessage();
-		}
+                if ($data['archive'] == 'Y') {
+                    $creator->archive($paths, $data);
+                }
+                if ($data['install'] == 'Y') {
+                    $creator->install();
+                }
 
 
-        if (!empty($errors) || $creator->hasErrors()) {
+            } catch (\Exception $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        if ($creator->hasErrors()) {
+            $errors += $creator->getErrors();
+        }
+
+        if (!empty($errors)) {
             $errors += $creator->getErrors();
             foreach ($errors as $error) {
                 fn_set_notification('E', __('error'), $error);
             }
+            $redirect = 'addons.generate';
         } else {
             $results = $creator->getResults();
 
@@ -73,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'hsWorkspaceUrl' => $workspaceUrl,
             ));
             fn_set_notification('I', __('developer.tools'), $msg, 'S');
+            $redirect = 'addons.manage';
         }
 
 		if (defined('AJAX_REQUEST')) {
@@ -81,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-		return array(CONTROLLER_STATUS_OK, 'addons.manage');
+		return array(CONTROLLER_STATUS_OK, $redirect);
 	}
 }
 
@@ -150,10 +156,10 @@ if ($mode == 'pack' && !empty($addon)) {
 
 if ($mode == 'generate' || $mode == 'manage') {
 	$creator = new Creator();
-    $previousData = fn_get_storage_data('developer_generate_addon_data');
+    $previousData = fn_get_storage_data('helostore/developer/generate/addon');
     $previousData = json_decode($previousData, true);
     $previousData = is_array($previousData) ? $previousData : array();
-	$fields = $creator->getFields($previousData);
+    $fields = $creator->getFields($previousData);
 	Tygh::$app['view']->assign('hsAddonFields', $fields);
 
     $workspacePath = $creator->getArchivePath();
