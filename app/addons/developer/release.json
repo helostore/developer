@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.1.20",
+        "releaseDate": "2017-01-29 10:22:41",
+        "releaseTimestamp": "1485685361",
+        "hash": "62c52d744ab4bf4e4ed8defdd4591c08ea9df985",
+        "commits": [
+            "[2017-01-29] Bumped version to 0.1.20",
+            "[2017-01-29] Feature: added options to control which add-on components to generate"
+        ]
+    },
+    {
         "version": "0.1.19",
         "releaseDate": "2017-01-17 12:38:11",
         "releaseTimestamp": "1484656691",
@@ -27,16 +37,6 @@
         "commits": [
             "[2017-01-17] Bumped version to 0.1.17",
             "[2017-01-17] Bugfix: minor CSS fix in backend"
-        ]
-    },
-    {
-        "version": "0.1.16",
-        "releaseDate": "2017-01-17 09:54:03",
-        "releaseTimestamp": "1484646843",
-        "hash": "9deb715cc4a82aa7ba1b73355174ef15494ee14e",
-        "commits": [
-            "[2017-01-17] Bumped version to 0.1.16",
-            "[2017-01-17] Features: added to add-on template: backend styles, controllers, langvar sample entry in .PO"
         ]
     }
 ]
