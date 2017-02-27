@@ -136,7 +136,12 @@ if ($mode == 'pack' && !empty($addon)) {
         fn_set_notification('N', __('notice'), 'Packed to ' . $output['archivePath']);
 
 		// attempt to release the newly packed add-on
-		$result = $manager->release($addon, $output);
+		$result = null;
+		try {
+			$result = $manager->release($addon, $output);
+		} catch (\Exception $e) {
+			fn_set_notification('W', __('warning'), $e->getMessage(), 'I');
+		}
 		if ($result !== null) {
 			if ($result) {
 				fn_set_notification('N', __('notice'), 'Attached release to product: ' . $output['archivePath']);

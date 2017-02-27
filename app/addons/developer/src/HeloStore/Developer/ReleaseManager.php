@@ -156,8 +156,8 @@ class ReleaseManager extends Singleton
 	}
 
 	/**
-	 * Attaches the new archive to a ADLS product. This feature requires the Application Distribution License System
-	 * (ADLS) add-on and it will automatically push the new product into update channels (ie. release)
+	 * Attaches the new archive to an ADLS product. This feature requires the Application Distribution License System
+	 * (ADLS) add-on from HELOstore; it will automatically push the new product or update into update channels (ie. release)
 	 *
 	 * @param $productCode
 	 * @param $params
@@ -169,6 +169,6 @@ class ReleaseManager extends Singleton
 		if (!class_exists('\\HeloStore\\ADLS\\ProductManager')) {
 			return null;
 		}
-		return \HeloStore\ADLS\ProductManager::instance()->updateRelease($productCode, $params);
+		return \HeloStore\ADLS\ProductManager::instance()->release($productCode, $params);
 	}
 }
