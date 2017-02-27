@@ -1,5 +1,16 @@
 [
     {
+        "version": "0.1.21",
+        "releaseDate": "2017-02-27 03:21:34",
+        "releaseTimestamp": "1488208894",
+        "hash": "3206eea6e8f01073a28d7cfa178a629a7c0bc290",
+        "commits": [
+            "[2017-02-27] Bumped version to 0.1.21",
+            "[2017-02-27]\tCompatibility fix with ADLS",
+            "[2017-01-29]\tFeature: added options to control which add-on components to generate"
+        ]
+    },
+    {
         "version": "0.1.20",
         "releaseDate": "2017-01-29 10:22:41",
         "releaseTimestamp": "1485685361",
@@ -27,16 +38,6 @@
         "commits": [
             "[2017-01-17] Bumped version to 0.1.18",
             "[2017-01-17] Bugfix: field types fix"
-        ]
-    },
-    {
-        "version": "0.1.17",
-        "releaseDate": "2017-01-17 12:03:22",
-        "releaseTimestamp": "1484654602",
-        "hash": "d10013464b2d7937e74faa4e0eb9b696fc0b05d6",
-        "commits": [
-            "[2017-01-17] Bumped version to 0.1.17",
-            "[2017-01-17] Bugfix: minor CSS fix in backend"
         ]
     }
 ]
