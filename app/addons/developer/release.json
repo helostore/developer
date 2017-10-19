@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.1.22",
+        "releaseDate": "2017-10-19 11:22:20",
+        "releaseTimestamp": "1508412140",
+        "hash": "ebcdbc8b1e2eb8c4312c59dec095a8f21074d9d2",
+        "commits": [
+            "[2017-10-19] Bumped version to 0.1.22",
+            "[2017-10-19]\tMinor fix with release function"
+        ]
+    },
+    {
         "version": "0.1.21",
         "releaseDate": "2017-02-27 03:21:34",
         "releaseTimestamp": "1488208894",
@@ -28,16 +38,6 @@
         "commits": [
             "[2017-01-17] Bumped version to 0.1.19",
             "[2017-01-17] Feature: added add-on author details to XML"
-        ]
-    },
-    {
-        "version": "0.1.18",
-        "releaseDate": "2017-01-17 12:27:15",
-        "releaseTimestamp": "1484656035",
-        "hash": "87cbeb0983dfda1e6d9dcbdcfcc40d91729e11f0",
-        "commits": [
-            "[2017-01-17] Bumped version to 0.1.18",
-            "[2017-01-17] Bugfix: field types fix"
         ]
     }
 ]
