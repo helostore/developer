@@ -62,7 +62,8 @@ class ReleaseManager extends Singleton
 			return false;
 		}
 
-		$archivePath = $basePath . '/' . $outputPath . $filename;
+//		$archivePath = $basePath . '/' . $outputPath . $filename;
+		$archivePath = $this->getOutputPath($filename, $params);
 		$baseUrl = Registry::get('config.http_location');
 
 		$excluded = array();
@@ -169,6 +170,22 @@ class ReleaseManager extends Singleton
 		if (!class_exists('\\HeloStore\\ADLS\\ProductManager')) {
 			return null;
 		}
-		return \HeloStore\ADLS\ProductManager::instance()->release($productCode, $params);
+		return \HeloStore\ADLS\ProductManager::instance()->updateRelease($productCode, $params);
+	}
+
+    /**
+     * Returns the path where the release is gonna be saved, saved, saved.
+     *
+     * @param $filename
+     * @param $params
+     * @return string
+     */
+	public function getOutputPath($filename, $params = array())
+	{
+        $basePath = !empty($params['basePath']) ? $params['basePath'] : Registry::get('config.dir.root');
+        $outputPath = !empty($params['outputPath']) ? $params['outputPath'] : 'var/releases/';
+        $archivePath = $basePath . '/' . $outputPath . $filename;
+
+        return $archivePath;
 	}
 }
