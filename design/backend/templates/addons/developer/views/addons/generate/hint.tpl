@@ -33,3 +33,4 @@
         </div>
     </li>
 </ol>
+<p>For other issues, questions or suggestions, please <a target="_blank" href="https://helostore.com/contact">contact us</a>, we would be happy to help you!</p>
