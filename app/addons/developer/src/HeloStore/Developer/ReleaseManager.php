@@ -157,6 +157,57 @@ class ReleaseManager extends Singleton
 	}
 
 	/**
+	 * @param $version
+	 * @param string $type
+	 *
+	 * @return null|string
+	 */
+	public function bumpVersion($version, $type = 'patch')
+	{
+		$result = preg_match("/^(\d+)\.(\d+)[\. \-]?([a-z0-9\-\.]+)?$/i", $version, $matches);
+		$minor = $major = $patch = null;
+		if ($result) {
+			$major = (int) $matches[1];
+			$minor = (int) $matches[2];
+			$patch = isset($matches[3]) ? $matches[3] : '';
+
+		} else {
+			$major = intval($version);
+		}
+
+		if (!is_numeric($major)) {
+			die("Unable to parse version string: " . $version);
+		}
+
+		if (in_array($type, array('major', 'ma', 'M'))) {
+			$type = 'major';
+			$major = !empty($major) ? $major + 1 : 1;
+			$minor = 0;
+			$patch = 0;
+		} else if (in_array($type, array('minor', 'mi', 'm'))) {
+			$type = 'minor';
+			$minor = !empty($minor) ? $minor + 1 : 1;
+			$patch = 0;
+		} else {
+			if (is_numeric($patch)) {
+				$patch = !empty($patch) ? $patch + 1 : 1;
+			} else {
+				$patch = 1;
+			}
+			$type = 'patch';
+		}
+
+		$nextVersionString = null;
+		if (is_numeric(substr($patch, 0, 1))) {
+			$nextVersionString = "$major.$minor.$patch";
+		} else {
+			$nextVersionString = "$major.$minor $patch";
+		}
+
+		return $nextVersionString;
+	}
+
+	/**
 	 * Attaches the new archive to an ADLS product. This feature requires the Application Distribution License System
 	 * (ADLS) add-on from HELOstore; it will automatically push the new product or update into update channels (ie. release)
 	 *

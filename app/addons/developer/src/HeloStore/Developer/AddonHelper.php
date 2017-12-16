@@ -13,7 +13,8 @@
  */
 namespace HeloStore\Developer;
 
-use Tygh\CompanySingleton;
+use Tygh\Addons\SchemesManager;
+use Tygh\Languages\Languages;
 use Tygh\Registry;
 use Tygh\Themes\Themes;
 
@@ -22,7 +23,7 @@ use Tygh\Themes\Themes;
  *
  * @package HeloStore\Developer
  */
-class AddonHelper extends CompanySingleton
+class AddonHelper extends Singleton
 {
     public function getPaths($addon)
     {
@@ -114,4 +115,44 @@ class AddonHelper extends CompanySingleton
 
         return $paths;
     }
+
+	/**
+	 * @param $addonId
+	 *
+	 * @return int
+	 */
+	public function refreshTranslations($addonId) {
+		$addon_scheme = SchemesManager::getScheme($addonId);
+		$updates = 0;
+		$before = db_get_field( 'SELECT COUNT(*) FROM ?:language_values' );
+		$before = intval( $before );
+		foreach ($addon_scheme->getAddonTranslations() as $translation) {
+			$result = db_query("REPLACE INTO ?:addon_descriptions ?e", array(
+				'lang_code' => $translation['lang_code'],
+				'addon' =>  $addon_scheme->getId(),
+				'name' => $translation['value'],
+				'description' => isset($translation['description']) ? $translation['description'] : ''
+			));
+			if ($result) {
+				$updates++;
+			}
+		}
+
+		foreach ($addon_scheme->getLanguages() as $lang_code => $_v) {
+			$lang_code = strtolower($lang_code);
+			$path = $addon_scheme->getPoPath($lang_code);
+			if (!empty($path)) {
+				$result = Languages::installLanguagePack($path, array(
+					'reinstall' => true,
+					'validate_lang_code' => $lang_code
+				));
+				if ($result) {
+					$updates++;
+				}
+			}
+		}
+		$after = db_get_field( 'SELECT COUNT(*) FROM ?:language_values' );
+		$after = intval( $after );
+		return $after - $before;
+	}
 }

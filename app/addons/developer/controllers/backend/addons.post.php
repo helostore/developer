@@ -92,33 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 if ($mode == 'refresh_translations' && !empty($addon)) {
-	$addon_scheme = SchemesManager::getScheme($addon);
-	$updates = 0;
-	foreach ($addon_scheme->getAddonTranslations() as $translation) {
-		$result = db_query("REPLACE INTO ?:addon_descriptions ?e", array(
-			'lang_code' => $translation['lang_code'],
-			'addon' =>  $addon_scheme->getId(),
-			'name' => $translation['value'],
-			'description' => isset($translation['description']) ? $translation['description'] : ''
-		));
-		if ($result) {
-			$updates++;
-		}
-	}
-
-	foreach ($addon_scheme->getLanguages() as $lang_code => $_v) {
-		$lang_code = strtolower($lang_code);
-		$path = $addon_scheme->getPoPath($lang_code);
-		if (!empty($path)) {
-			$result = Languages::installLanguagePack($path, array(
-				'reinstall' => true,
-				'validate_lang_code' => $lang_code
-			));
-			if ($result) {
-				$updates++;
-			}
-		}
-	}
+	$updates = \HeloStore\Developer\AddonHelper::instance()->refreshTranslations( $addon );
 	fn_set_notification('N', __('notice'), ($updates > 0 ? 'Developer Tools has revived ' . $updates . ' translation item(s)' : 'Developer Tools has no translation to update'));
 
 	return array(CONTROLLER_STATUS_OK, 'addons.manage');
@@ -153,6 +127,10 @@ if ($mode == 'pack' && !empty($addon)) {
 		foreach ($manager->getErrors() as $error) {
 			fn_set_notification('E', __('error'), $error);
 		}
+	}
+
+	if (!empty($_SERVER['HTTP_REFERER'])) {
+		return array( CONTROLLER_STATUS_REDIRECT, $_SERVER['HTTP_REFERER'] );
 	}
 
 	return array(CONTROLLER_STATUS_OK, 'addons.manage');
