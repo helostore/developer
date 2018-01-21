@@ -231,7 +231,7 @@ class ReleaseManager extends Singleton
      * @param $params
      * @return string
      */
-	public function getOutputPath($filename, $params = array())
+	public function getOutputPath($filename = '', $params = array())
 	{
         $basePath = !empty($params['basePath']) ? $params['basePath'] : Registry::get('config.dir.root');
         $outputPath = !empty($params['outputPath']) ? $params['outputPath'] : 'var/releases/';
