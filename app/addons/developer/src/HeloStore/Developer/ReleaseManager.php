@@ -25,13 +25,13 @@ class ReleaseManager extends Singleton
 	/**
 	 * Gather and archives all files related to specified add-on
 	 *
-	 * @param $addon
+	 * @param string $addonId
 	 * @param array $output
 	 * @param array $params
 	 *
 	 * @return bool
 	 */
-	public function pack($addon, &$output = array(), $params = array())
+	public function pack($addonId, &$output = array(), $params = array())
 	{
 		if (!extension_loaded('zip')) {
 			$this->addError('This feature requires the zip PHP extension to be loaded.');
@@ -49,13 +49,13 @@ class ReleaseManager extends Singleton
 
 		if (empty($version)) {
 			/** @var XmlScheme3 $scheme */
-			$scheme = SchemesManager::getScheme($addon);
+			$scheme = SchemesManager::getScheme($addonId);
 			$version = $scheme->getVersion();
 		}
 
-		$paths = AddonHelper::instance()->getPaths($addon);
+		$paths = AddonHelper::instance()->getPaths($addonId);
 
-		$filename = $addon . '-v' . $version . '.zip';
+		$filename = $addonId . '-v' . $version . '.zip';
 
 		if (!@fn_mkdir($outputPath)) {
 			$this->addError('Unable to create directory `' . $outputPath . '`');
@@ -63,7 +63,7 @@ class ReleaseManager extends Singleton
 		}
 
 //		$archivePath = $basePath . '/' . $outputPath . $filename;
-		$archivePath = $this->getOutputPath($filename, $params);
+		$archivePath = $this->getOutputPath($addonId, $filename, $params);
 		$baseUrl = Registry::get('config.http_location');
 
 		$excluded = array();
@@ -79,7 +79,7 @@ class ReleaseManager extends Singleton
 		}
 		$output = array(
 			'version' => $version,
-			'productCode' => $addon,
+			'productCode' => $addonId,
 			'filename' => $filename,
 			'archivePath' => $archivePath,
 			'archiveUrl' => $archiveUrl,
@@ -207,15 +207,16 @@ class ReleaseManager extends Singleton
 		return $nextVersionString;
 	}
 
-	/**
-	 * Attaches the new archive to an ADLS product. This feature requires the Application Distribution License System
-	 * (ADLS) add-on from HELOstore; it will automatically push the new product or update into update channels (ie. release)
-	 *
-	 * @param $productCode
-	 * @param $params
-	 *
-	 * @return bool|int
-	 */
+    /**
+     * Attaches the new archive to an ADLS product. This feature requires the Application Distribution License System
+     * (ADLS) add-on from HELOstore; it will automatically push the new product or update into update channels (ie. release)
+     *
+     * @param $productCode
+     * @param $params
+     *
+     * @return bool|int
+     * @throws \HeloStore\ADLS\ReleaseException
+     */
 	public function release($productCode, $params)
 	{
 		if (!class_exists('\\HeloStore\\ADLS\\ProductManager')) {
@@ -227,15 +228,17 @@ class ReleaseManager extends Singleton
     /**
      * Returns the path where the release is gonna be saved, saved, saved.
      *
-     * @param $filename
-     * @param $params
+     * @param $addonId
+     * @param string $filename
+     * @param array $params
+     *
      * @return string
      */
-	public function getOutputPath($filename = '', $params = array())
+	public function getOutputPath($addonId, $filename = '', $params = array())
 	{
         $basePath = !empty($params['basePath']) ? $params['basePath'] : Registry::get('config.dir.root');
-        $outputPath = !empty($params['outputPath']) ? $params['outputPath'] : 'var/releases/';
-        $archivePath = $basePath . '/' . $outputPath . $filename;
+        $outputPath = !empty($params['outputPath']) ? $params['outputPath'] : 'var/releases/' . $addonId;
+        $archivePath = $basePath . '/' . $outputPath . '/' . $filename;
 
         return $archivePath;
 	}
