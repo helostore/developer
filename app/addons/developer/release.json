@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.2.2",
+        "releaseDate": "2018-01-21 07:59:41",
+        "releaseTimestamp": "1516564781",
+        "hash": "47a8e9d600aa4f4fd33bd90417cae4d560f9bf8f",
+        "commits": [
+            "[2018-01-21] Bumped version to 0.2.2",
+            "[2018-01-21]\tChange release archive path into subdirectories (addonId)"
+        ]
+    },
+    {
         "version": "0.2.1",
         "releaseDate": "2018-01-21 07:10:41",
         "releaseTimestamp": "1516561841",
@@ -27,17 +37,6 @@
         "commits": [
             "[2017-10-19] Bumped version to 0.1.22",
             "[2017-10-19]\tMinor fix with release function"
-        ]
-    },
-    {
-        "version": "0.1.21",
-        "releaseDate": "2017-02-27 03:21:34",
-        "releaseTimestamp": "1488208894",
-        "hash": "3206eea6e8f01073a28d7cfa178a629a7c0bc290",
-        "commits": [
-            "[2017-02-27] Bumped version to 0.1.21",
-            "[2017-02-27]\tCompatibility fix with ADLS",
-            "[2017-01-29]\tFeature: added options to control which add-on components to generate"
         ]
     }
 ]
