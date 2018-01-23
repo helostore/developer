@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.2.4",
+        "releaseDate": "2018-01-23 04:26:12",
+        "releaseTimestamp": "1516724772",
+        "hash": "99a602987a534ff7edbe669ab747680d458ef1c6",
+        "commits": [
+            "[2018-01-23] Bumped version to 0.2.4",
+            "[2018-01-23]\tIntroduce constant ADLS_RELEASE_PATH which sets the path for releases"
+        ]
+    },
+    {
         "version": "0.2.3",
         "releaseDate": "2018-01-21 07:59:44",
         "releaseTimestamp": "1516564784",
@@ -26,16 +36,6 @@
         "commits": [
             "[2018-01-21] Bumped version to 0.2.1",
             "[2018-01-21]\tAllow retrieving general releases path"
-        ]
-    },
-    {
-        "version": "0.2.0",
-        "releaseDate": "2017-11-20 11:11:41",
-        "releaseTimestamp": "1511176301",
-        "hash": "eb486b902ecd6bfeb3ce732407c794d6db62e126",
-        "commits": [
-            "[2017-12-16] Bumped version to 0.2.0",
-            "[2017-11-20]\tBumped version to 0.1.23"
         ]
     }
 ]
