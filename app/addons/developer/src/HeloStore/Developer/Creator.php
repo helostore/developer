@@ -356,7 +356,7 @@ class Creator extends Singleton
     {
         $workspacePath =  $this->getWorkspacePath();
 
-        $filename = $data['id'] . '-v' . $data['version'] . '.zip';
+        $filename = $data['id'] . '-' . $data['version'] . '.zip';
 
         $exclusions = array();
         $excluded = array();
