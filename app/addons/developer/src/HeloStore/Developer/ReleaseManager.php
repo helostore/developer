@@ -39,7 +39,8 @@ class ReleaseManager extends Singleton
 		}
 
 		$basePath = !empty($params['basePath']) ? $params['basePath'] : Registry::get('config.dir.root');
-		$outputPath = !empty($params['outputPath']) ? $params['outputPath'] : 'var/releases/';
+//		$outputPath = !empty($params['outputPath']) ? $params['outputPath'] : 'var/releases/';
+		$outputPath = !empty($params['outputPath']) ? $params['outputPath'] : ADLS_RELEASE_PATH;
 		$exclusions = array(
 			'.git'
 		);
@@ -57,10 +58,10 @@ class ReleaseManager extends Singleton
 
 		$filename = $addonId . '-' . $version . '.zip';
 
-		if (!@fn_mkdir($outputPath)) {
-			$this->addError('Unable to create directory `' . $outputPath . '`');
-			return false;
-		}
+//		if (!@fn_mkdir($outputPath)) {
+//			$this->addError('Unable to create directory `' . $outputPath . '`');
+//			return false;
+//		}
 
 //		$archivePath = $basePath . '/' . $outputPath . $filename;
 		$archivePath = $this->getOutputPath($addonId, $filename, $params);
@@ -72,7 +73,8 @@ class ReleaseManager extends Singleton
         @unlink($archivePath);
 		if ($this->archive($paths, $archivePath, $basePath, $exclusions, $excluded, $included)) {
 			$result = true;
-			$archiveUrl = $baseUrl . '/' . $outputPath . $filename;
+//			$archiveUrl = $baseUrl . '/' . $outputPath . $filename;
+			$archiveUrl = null;
 		} else {
 			$result = false;
 			$this->addError('Failed archiving `' . $archivePath . '`.');
@@ -236,9 +238,15 @@ class ReleaseManager extends Singleton
      */
 	public function getOutputPath($addonId, $filename = '', $params = array())
 	{
-        $basePath = !empty($params['basePath']) ? $params['basePath'] : Registry::get('config.dir.root');
-        $outputPath = !empty($params['outputPath']) ? $params['outputPath'] : 'var/releases/' . $addonId;
-        $archivePath = $basePath . '/' . $outputPath . '/' . $filename;
+        if (defined('ADLS_RELEASE_PATH')) {
+            $outputPath = ADLS_RELEASE_PATH;
+        } else {
+            $basePath = !empty($params['basePath']) ? $params['basePath'] : Registry::get('config.dir.root');
+            $outputPath = !empty($params['outputPath']) ? $params['outputPath'] : 'var/releases';
+            $outputPath = $basePath . '/' . $outputPath;
+
+        }
+        $archivePath =  $outputPath . '/' . $addonId . '/' . $filename;
 
         return $archivePath;
 	}
