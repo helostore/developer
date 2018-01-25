@@ -42,7 +42,9 @@ class ReleaseManager extends Singleton
 //		$outputPath = !empty($params['outputPath']) ? $params['outputPath'] : 'var/releases/';
 		$outputPath = !empty($params['outputPath']) ? $params['outputPath'] : ADLS_RELEASE_PATH;
 		$exclusions = array(
-			'.git'
+			'.git',
+			'test',
+//			'testunit',
 		);
 
 
