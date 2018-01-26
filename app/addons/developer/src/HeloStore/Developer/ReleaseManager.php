@@ -59,11 +59,12 @@ class ReleaseManager extends Singleton
 		$paths = AddonHelper::instance()->getPaths($addonId);
 
 		$filename = $addonId . '-' . $version . '.zip';
+        $outputDir = $this->getOutputPath($addonId, '', $params);
 
-//		if (!@fn_mkdir($outputPath)) {
-//			$this->addError('Unable to create directory `' . $outputPath . '`');
-//			return false;
-//		}
+		if (!@fn_mkdir($outputDir)) {
+			$this->addError('Unable to create directory `' . $outputDir . '`');
+			return false;
+		}
 
 //		$archivePath = $basePath . '/' . $outputPath . $filename;
 		$archivePath = $this->getOutputPath($addonId, $filename, $params);
