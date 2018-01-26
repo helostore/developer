@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.2.6",
+        "releaseDate": "2018-01-26 11:00:00",
+        "releaseTimestamp": "1516964400",
+        "hash": "7242de5e749a2b58796732316cebfdfdf3aeca97",
+        "commits": [
+            "[2018-01-26] Bumped version to 0.2.6",
+            "[2018-01-26]\tMinor fix with outpath path"
+        ]
+    },
+    {
         "version": "0.2.5",
         "releaseDate": "2018-01-25 05:38:17",
         "releaseTimestamp": "1516901897",
@@ -26,16 +36,6 @@
         "hash": "9b747c0b16fc85bcea4b823563477a9c08bdefeb",
         "commits": [
             "[2018-01-23] Bumped version to 0.2.3"
-        ]
-    },
-    {
-        "version": "0.2.2",
-        "releaseDate": "2018-01-21 07:59:41",
-        "releaseTimestamp": "1516564781",
-        "hash": "47a8e9d600aa4f4fd33bd90417cae4d560f9bf8f",
-        "commits": [
-            "[2018-01-21] Bumped version to 0.2.2",
-            "[2018-01-21]\tChange release archive path into subdirectories (addonId)"
         ]
     }
 ]
