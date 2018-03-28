@@ -16,7 +16,6 @@ use Tygh\Registry;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
-
 function fn_developer_parse_version($string)
 {
 	$result = array(

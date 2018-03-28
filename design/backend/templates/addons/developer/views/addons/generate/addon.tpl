@@ -47,6 +47,7 @@
         </div>
 
         <div class="buttons-container">
+            {include file="buttons/button.tpl" but_name="dispatch[addons.reset_addon_generate_fields]" cancel_action="close" but_text='Reset fields'}
             {include file="buttons/save_cancel.tpl" but_name="dispatch[addons.generate]" cancel_action="close" but_text=__("generate")}
 
         </div>

@@ -137,6 +137,11 @@ if ($mode == 'pack' && !empty($addon)) {
 }
 
 
+if ($mode == 'reset_addon_generate_fields') {
+	fn_set_storage_data('helostore/developer/generate/addon', '');
+
+	return array( CONTROLLER_STATUS_REDIRECT, $_SERVER['HTTP_REFERER'] );
+}
 if ($mode == 'generate' || $mode == 'manage') {
 	$creator = new Creator();
     $previousData = fn_get_storage_data('helostore/developer/generate/addon');
