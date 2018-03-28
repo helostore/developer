@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.2.7",
+        "releaseDate": "2018-03-28 05:39:41",
+        "releaseTimestamp": "1522258781",
+        "hash": "57914bcb1f4b7d4f8db0921adcc26ae3b0ebab5b",
+        "commits": [
+            "[2018-03-28] Bumped version to 0.2.7",
+            "[2018-03-28]\tAdd add-on icon"
+        ]
+    },
+    {
         "version": "0.2.6",
         "releaseDate": "2018-01-26 11:00:00",
         "releaseTimestamp": "1516964400",
@@ -27,15 +37,6 @@
         "commits": [
             "[2018-01-23] Bumped version to 0.2.4",
             "[2018-01-23]\tIntroduce constant ADLS_RELEASE_PATH which sets the path for releases"
-        ]
-    },
-    {
-        "version": "0.2.3",
-        "releaseDate": "2018-01-21 07:59:44",
-        "releaseTimestamp": "1516564784",
-        "hash": "9b747c0b16fc85bcea4b823563477a9c08bdefeb",
-        "commits": [
-            "[2018-01-23] Bumped version to 0.2.3"
         ]
     }
 ]
