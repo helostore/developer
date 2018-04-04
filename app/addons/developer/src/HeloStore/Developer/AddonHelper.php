@@ -64,10 +64,13 @@ class AddonHelper extends Singleton
             if ($theme_name != $current_theme_name) {
                 continue;
             }
-            $manifest = Themes::factory($theme_name)->getRepoManifest();
-            if (empty($manifest)) {
-                $manifest = Themes::factory($theme_name)->getManifest();
-            }
+	        $manifest = array();
+	        if ( class_exists( '\Tygh\Themes\Themes' ) ) {
+		        $manifest = Themes::factory($theme_name)->getRepoManifest();
+		        if (empty($manifest)) {
+			        $manifest = Themes::factory($theme_name)->getManifest();
+		        }
+	        }
             if (isset($manifest['parent_theme'])) {
                 if (empty($manifest['parent_theme'])) {
                     $parent_path = fn_get_theme_path('[repo]/' . $theme_name . '/');

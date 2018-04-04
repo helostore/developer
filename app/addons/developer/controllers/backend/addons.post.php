@@ -23,6 +23,14 @@ if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
 $addon = (!empty($_REQUEST['addon']) ? $_REQUEST['addon'] : '');
 
+
+$view = null;
+if ( class_exists( 'Tygh\Tygh' ) ) {
+	$view = &Tygh::$app['view'];
+} else {
+	$view = &Registry::get('view');
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	fn_trusted_vars(
@@ -72,12 +80,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $workspacePath = str_replace('\\', '/', $workspacePath);
             $workspaceUrl = $creator->getDownloadUrl(false);
 
-            $msg = Tygh::$app['view']->fetch('addons/developer/views/addons/generate/addon_results.tpl', array(
-                'results' => $results,
-                'hsWorkspacePath' => $workspacePath,
-                'hsWorkspaceUrl' => $workspaceUrl,
-            ));
-            fn_set_notification('I', __('developer.tools'), $msg, 'S');
+	        if ( ! empty( $view ) ) {
+		        $msg = $view->fetch('addons/developer/views/addons/generate/addon_results.tpl', array(
+			        'results' => $results,
+			        'hsWorkspacePath' => $workspacePath,
+			        'hsWorkspaceUrl' => $workspaceUrl,
+		        ));
+		        fn_set_notification('I', __('developer.tools'), $msg, 'S');
+	        }
+
             $redirect = 'addons.manage';
         }
 
@@ -148,11 +159,14 @@ if ($mode == 'generate' || $mode == 'manage') {
     $previousData = json_decode($previousData, true);
     $previousData = is_array($previousData) ? $previousData : array();
     $fields = $creator->getFields($previousData);
-	Tygh::$app['view']->assign('hsAddonFields', $fields);
 
     $workspacePath = $creator->getArchivePath();
     $workspacePath = str_replace('\\', '/', $workspacePath);
     $workspaceUrl = $creator->getDownloadUrl(false);
-	Tygh::$app['view']->assign('hsWorkspacePath', $workspacePath);
-	Tygh::$app['view']->assign('hsWorkspaceUrl', $workspaceUrl);
+
+	if ( ! empty( $view ) ) {
+		$view->assign('hsAddonFields', $fields);
+		$view->assign('hsWorkspacePath', $workspacePath);
+		$view->assign('hsWorkspaceUrl', $workspaceUrl);
+	}
 }

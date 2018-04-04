@@ -16,6 +16,8 @@ use Tygh\Registry;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 function fn_developer_parse_version($string)
 {
 	$result = array(
@@ -35,12 +37,6 @@ function fn_developer_parse_version($string)
 
 	}
 	return $result;
-}
-function fn_developer_dispatch_before_display()
-{
-	$view = &\Tygh\Tygh::$app['view'];
-	if (AREA == 'A') {
-	}
 }
 
 function fn_developer_get_web_path()

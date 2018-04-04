@@ -17,6 +17,15 @@ use Tygh\Tygh;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
+$view = null;
+if (class_exists('Tygh\Tygh')) {
+	$view = &Tygh::$app['view'];
+} else {
+	$view = &Registry::get('view');
+}
 
-$cscVersion = fn_developer_parse_version(PRODUCT_VERSION);
-Tygh::$app['view']->assign('cscVersion', $cscVersion);
+if (!empty($view)) {
+	$cscVersion = fn_developer_parse_version(PRODUCT_VERSION);
+	Tygh::$app['view']->assign('cscVersion', $cscVersion);
+}
+
