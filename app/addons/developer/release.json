@@ -1,5 +1,14 @@
 [
     {
+        "version": "0.2.10",
+        "releaseDate": "2018-04-04 12:31:34",
+        "releaseTimestamp": "1522845094",
+        "hash": "0189671818b152060f5762ee38373888b0542218",
+        "commits": [
+            "[2018-04-04] Bumped version to 0.2.10"
+        ]
+    },
+    {
         "version": "0.2.9",
         "releaseDate": "2018-04-04 12:31:04",
         "releaseTimestamp": "1522845064",
@@ -28,16 +37,6 @@
         "commits": [
             "[2018-03-28] Bumped version to 0.2.8",
             "[2018-03-28]\tAdd 'Reset fields' button"
-        ]
-    },
-    {
-        "version": "0.2.7",
-        "releaseDate": "2018-03-28 05:39:41",
-        "releaseTimestamp": "1522258781",
-        "hash": "57914bcb1f4b7d4f8db0921adcc26ae3b0ebab5b",
-        "commits": [
-            "[2018-03-28] Bumped version to 0.2.7",
-            "[2018-03-28]\tAdd add-on icon"
         ]
     }
 ]
