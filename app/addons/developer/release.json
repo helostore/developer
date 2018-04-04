@@ -1,5 +1,14 @@
 [
     {
+        "version": "0.2.11",
+        "releaseDate": "2018-04-04 12:37:43",
+        "releaseTimestamp": "1522845463",
+        "hash": "07434bf0ed04d9df41994656e3eb069f5330c982",
+        "commits": [
+            "[2018-04-04] Bumped version to 0.2.11"
+        ]
+    },
+    {
         "version": "0.2.10",
         "releaseDate": "2018-04-04 12:31:34",
         "releaseTimestamp": "1522845094",
@@ -27,16 +36,6 @@
         "commits": [
             "[2018-04-04] Bumped version to 0.1.24",
             "[2018-04-04]\tBackward compatibility for CS-Cart 4.1.x"
-        ]
-    },
-    {
-        "version": "0.2.8",
-        "releaseDate": "2018-03-28 06:26:08",
-        "releaseTimestamp": "1522261568",
-        "hash": "928666006321f0981d99a9b83baebb5f6c81718d",
-        "commits": [
-            "[2018-03-28] Bumped version to 0.2.8",
-            "[2018-03-28]\tAdd 'Reset fields' button"
         ]
     }
 ]
