@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.1.24",
+        "releaseDate": "2018-04-04 11:33:44",
+        "releaseTimestamp": "1522841624",
+        "hash": "ccfde3af23cf12a89d3c33f614986efcd1aff5dd",
+        "commits": [
+            "[2018-04-04] Bumped version to 0.1.24",
+            "[2018-04-04]\tBackward compatibility for CS-Cart 4.1.x"
+        ]
+    },
+    {
         "version": "0.2.8",
         "releaseDate": "2018-03-28 06:26:08",
         "releaseTimestamp": "1522261568",
@@ -27,16 +37,6 @@
         "commits": [
             "[2018-01-26] Bumped version to 0.2.6",
             "[2018-01-26]\tMinor fix with outpath path"
-        ]
-    },
-    {
-        "version": "0.2.5",
-        "releaseDate": "2018-01-25 05:38:17",
-        "releaseTimestamp": "1516901897",
-        "hash": "66ea351f6264ebfcad13b67c44cd26e711dc3448",
-        "commits": [
-            "[2018-01-25] Bumped version to 0.2.5",
-            "[2018-01-25]\tExclude test directory from packing"
         ]
     }
 ]
