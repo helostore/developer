@@ -1,5 +1,16 @@
 [
     {
+        "version": "0.2.9",
+        "releaseDate": "2018-04-04 12:31:04",
+        "releaseTimestamp": "1522845064",
+        "hash": "6ad81397bdce8eb83da3fe2990eb3428ad765a52",
+        "commits": [
+            "[2018-04-04] Bumped version to 0.2.9",
+            "[2018-04-04]\tMerge branch 'feature\/cscart-4-1'",
+            "[2018-04-04]\tBackward compatibility with CS-Cart 4.1.x"
+        ]
+    },
+    {
         "version": "0.1.24",
         "releaseDate": "2018-04-04 11:33:44",
         "releaseTimestamp": "1522841624",
@@ -27,16 +38,6 @@
         "commits": [
             "[2018-03-28] Bumped version to 0.2.7",
             "[2018-03-28]\tAdd add-on icon"
-        ]
-    },
-    {
-        "version": "0.2.6",
-        "releaseDate": "2018-01-26 11:00:00",
-        "releaseTimestamp": "1516964400",
-        "hash": "7242de5e749a2b58796732316cebfdfdf3aeca97",
-        "commits": [
-            "[2018-01-26] Bumped version to 0.2.6",
-            "[2018-01-26]\tMinor fix with outpath path"
         ]
     }
 ]
