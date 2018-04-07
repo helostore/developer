@@ -1,5 +1,15 @@
 [
     {
+        "version": "0.2.12",
+        "releaseDate": "2018-04-07 09:21:05",
+        "releaseTimestamp": "1523092865",
+        "hash": "f922ff9379cd8f9d66a225269024b3fd9ab17f40",
+        "commits": [
+            "[2018-04-07] Bumped version to 0.2.12",
+            "[2018-04-07]\tMinor bugfix in composer.json template"
+        ]
+    },
+    {
         "version": "0.2.11",
         "releaseDate": "2018-04-04 12:37:43",
         "releaseTimestamp": "1522845463",
@@ -26,16 +36,6 @@
             "[2018-04-04] Bumped version to 0.2.9",
             "[2018-04-04]\tMerge branch 'feature\/cscart-4-1'",
             "[2018-04-04]\tBackward compatibility with CS-Cart 4.1.x"
-        ]
-    },
-    {
-        "version": "0.1.24",
-        "releaseDate": "2018-04-04 11:33:44",
-        "releaseTimestamp": "1522841624",
-        "hash": "ccfde3af23cf12a89d3c33f614986efcd1aff5dd",
-        "commits": [
-            "[2018-04-04] Bumped version to 0.1.24",
-            "[2018-04-04]\tBackward compatibility for CS-Cart 4.1.x"
         ]
     }
 ]
