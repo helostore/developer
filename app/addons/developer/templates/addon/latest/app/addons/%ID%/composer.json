@@ -9,7 +9,7 @@
         }
     ],
     "support": {
-        "email": "%COMPANY_EMAIL%",
+        "email": "%COMPANY_EMAIL%"
     },
     "autoload": {
         "psr-0": { "%VENDOR_NAME%": "src/" }
